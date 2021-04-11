@@ -26,6 +26,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".ShowMusics"></activity>
         <activity android:name=".MainActivity">
         <activity android:name=".RegisterActivity"></activity>
         <activity android:name=".LoginActivity">
@@ -43,5 +45,8 @@
             </intent-filter>
         </activity>
     </application>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>
