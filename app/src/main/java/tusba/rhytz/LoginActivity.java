@@ -94,25 +94,7 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent_to_login);
 
 
-        // database
 
-        /*if (DBUser.Login(username,password))
-        {
-//            tvMessage.setText("Welcome to Android..");
-//            tvMessage.setVisibility(View.VISIBLE);
-//            tvMessage.setTextColor(Color.GREEN);
-
-            // Intent
-
-            Intent intent = new Intent(this,HomeActivity.class);
-            intent.putExtra("data",username);
-            startActivity(intent);
-        }
-        else{
-            tvMessage.setText("Incorrect username or password");
-            tvMessage.setVisibility(View.VISIBLE);
-            tvMessage.setTextColor(Color.RED);
-        }*/
 
 
     }
