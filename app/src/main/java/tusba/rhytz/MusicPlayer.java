@@ -1,40 +1,21 @@
 package tusba.rhytz;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
-import android.Manifest;
-import android.content.ContentResolver;
-import android.content.ContentUris;
-import android.content.pm.PackageManager;
-import android.database.CharArrayBuffer;
-import android.database.ContentObserver;
-import android.database.Cursor;
-import android.database.DataSetObserver;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.media.MediaPlayer;
 import android.media.TimedText;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
-import android.provider.OpenableColumns;
+
 import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.TimeUnit;
 
 import tusba.rhytz.model.Music;
 
@@ -53,7 +34,6 @@ public class MusicPlayer extends AppCompatActivity {
 
 
 
-    @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -247,7 +227,7 @@ public class MusicPlayer extends AppCompatActivity {
         }*/
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.Q)
+   /* @RequiresApi(api = Build.VERSION_CODES.Q)
     private void Test() {
 
 
@@ -322,7 +302,7 @@ public class MusicPlayer extends AppCompatActivity {
         }
 
     }
-
+*/
 
   /*  public ArrayList<File> Song(File file){
         ArrayList<File> filesArray = new ArrayList<>();

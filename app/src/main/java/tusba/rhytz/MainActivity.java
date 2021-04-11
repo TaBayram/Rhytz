@@ -9,9 +9,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-
-public class MainActivity extends AppCompatActivity {
-    Button logout;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.database.Cursor;
@@ -24,6 +21,7 @@ import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 
+/*
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -35,7 +33,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
-import com.google.firebase.storage.UploadTask;
+import com.google.firebase.storage.UploadTask;*/
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -49,7 +47,7 @@ import tusba.rhytz.models.Music;
 import tusba.rhytz.models.MusicianInfo;
 
 public class MainActivity extends AppCompatActivity implements FirebaseInterface {
-
+    Button logout;
     Uri audioUri;
     FirebaseClass firebase;
 
@@ -203,7 +201,10 @@ public class MainActivity extends AppCompatActivity implements FirebaseInterface
         return mime.getExtensionFromMimeType(contentResolver.getType(audioUri));
     }
     public void GoToShowMusics(View view){
-        firebase.GetAllMusic(this);
+        Intent intent = new Intent(this, MusicLibrary.class);
+        this.startActivity(intent);
+
+        //firebase.GetAllMusic(this);
     }
 
 
