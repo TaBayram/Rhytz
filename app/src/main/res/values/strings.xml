@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Rhytz</string>
+    <string name="btnRegister">REGISTER</string>
+    <string name="btnBack">BACK</string>
+    <string name="btnLogin">LOGIN</string>
+    <string name="cbRemember">REMEMBER ME</string>
+    <string name="tbMessage" />
+    <string name="rbMale">MALE</string>
+    <string name="rbFemale">FEMALE</string>
+    <string name="btnLogout">LOG OUT</string>
 </resources>
