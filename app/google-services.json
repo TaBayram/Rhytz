@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "426383571731",
+    "project_id": "rhytz-1821f",
+    "storage_bucket": "rhytz-1821f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:426383571731:android:4b48573ca45aa8ff2b38e6",
+        "android_client_info": {
+          "package_name": "tusba.rhytz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "426383571731-275e6ch79go53i6j3t00jginlep7qoqk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAywxEBqcm7CVvL-2JaR5xVdfywTIEQ68"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "426383571731-275e6ch79go53i6j3t00jginlep7qoqk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
