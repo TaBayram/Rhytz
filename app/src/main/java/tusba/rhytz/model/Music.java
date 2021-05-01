@@ -63,11 +63,11 @@ public class Music implements Serializable {
     }
 
     public String getGenre() {
-        return Genre;
+        return genre;
     }
 
     public void setGenre(String genre) {
-        Genre = genre;
+        genre = genre;
     }
 
     private String uri;
@@ -77,9 +77,9 @@ public class Music implements Serializable {
     private String album;
     private String artist;
     private String title;
-    private String Genre;
+    private String genre;
 
-    public Music(Uri uri, String name, int duration, int size,String album, String artist, String title, String Genre) {
+    public Music(Uri uri, String name, int duration, int size,String album, String artist, String title, String genre) {
         this.uri = uri.toString();
         this.name = name;
         this.duration = duration;

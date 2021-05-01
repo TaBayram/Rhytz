@@ -1,12 +1,5 @@
 package tusba.rhytz;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.Manifest;
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -14,37 +7,64 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.tabs.TabLayout;
+
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.provider.MediaStore;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import tusba.rhytz.model.Music;
 import tusba.rhytz.model.MusicAdapter;
+import tusba.rhytz.ui.main.SectionsPagerAdapter;
 
-public class MusicLibrary extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity {
 
     private static final int PERMISSION_REQUEST = 1;
-    RecyclerView recyclerViewSongs;
-    ArrayList<Music> music;
+    public ArrayList<Music> music;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_music_library);
+        setContentView(R.layout.activity_home);
+        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
+        ViewPager viewPager = findViewById(R.id.view_pager);
+        viewPager.setAdapter(sectionsPagerAdapter);
+        TabLayout tabs = findViewById(R.id.tabs);
+        tabs.setupWithViewPager(viewPager);
+        FloatingActionButton fab = findViewById(R.id.fab);
 
-        recyclerViewSongs = findViewById(R.id.recyclerViewFragmentSongs);
 
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
 
-
-        if(ContextCompat.checkSelfPermission(MusicLibrary.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            if(ActivityCompat.shouldShowRequestPermissionRationale(MusicLibrary.this,
+        if(ContextCompat.checkSelfPermission(HomeActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            if(ActivityCompat.shouldShowRequestPermissionRationale(HomeActivity.this,
                     Manifest.permission.READ_EXTERNAL_STORAGE)){
-                ActivityCompat.requestPermissions(MusicLibrary.this,
+                ActivityCompat.requestPermissions(HomeActivity.this,
                         new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST);
             }
             else{
-                ActivityCompat.requestPermissions(MusicLibrary.this,
+                ActivityCompat.requestPermissions(HomeActivity.this,
                         new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST);
             }
         }
@@ -52,10 +72,7 @@ public class MusicLibrary extends AppCompatActivity {
             Music();
         }
 
-        MusicAdapter musicAdapter = new MusicAdapter(this,music);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
-        recyclerViewSongs.setLayoutManager(layoutManager);
-        recyclerViewSongs.setAdapter(musicAdapter);
+
 
 
     }
@@ -91,27 +108,24 @@ public class MusicLibrary extends AppCompatActivity {
 
 
                 musics.add(new Music(contentUri, name, duration, size, album, artist, title,genre));
-                System.out.println(name);
             }while(songCursor.moveToNext());
 
             music = musics;
         }
-
     }
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode){
             case PERMISSION_REQUEST: {
                 if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                    if(ContextCompat.checkSelfPermission(MusicLibrary.this,
+                    if(ContextCompat.checkSelfPermission(HomeActivity.this,
                             Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
                         Toast.makeText(this,"Permission Granted",Toast.LENGTH_SHORT).show();
 
                         Music();
                     }
                     else{
-                        Toast.makeText(this,"Permission Couldn't be Granted",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this,"Permission Couldn't be Granted", Toast.LENGTH_SHORT).show();
                         finish();
                     }
                     return;

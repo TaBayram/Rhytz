@@ -8,4 +8,13 @@
     <string name="rbMale">MALE</string>
     <string name="rbFemale">FEMALE</string>
     <string name="btnLogout">LOG OUT</string>
+    <string name="title_activity_home">homeActivity</string>
+    <string name="tabtitleHome">Home</string>
+    <string name="tabtitleSongs">Songs</string>
+    <string name="tabtitlePlaylists">Playlists</string>
+    <string name="tabtitleGenres">Genres</string>
+    <string name="tabtitleArtists">Artists</string>
+    <string name="tabtitleAlbums">Albums</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
