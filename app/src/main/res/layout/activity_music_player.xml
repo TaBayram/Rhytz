@@ -26,9 +26,11 @@
                 android:id="@+id/imageViewAlbumCover"
                 android:layout_width="240dp"
                 android:layout_height="240dp"
+                android:background="#1BFFFFFF"
                 android:baselineAlignBottom="false"
                 android:clickable="false"
-                tools:srcCompat="@tools:sample/backgrounds/scenic" />
+                app:srcCompat="@drawable/ic_baseline_album_24"
+                tools:srcCompat="@drawable/ic_baseline_album_24" />
 
         </LinearLayout>
 

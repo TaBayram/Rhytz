@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,22 +16,23 @@ import java.util.ArrayList;
 import tusba.rhytz.MusicPlayer;
 import tusba.rhytz.R;
 
-public  class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> {
+public  class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.ViewHolder> {
 
     Context context;
     ArrayList<Music> music;
 
     public class ViewHolder extends  RecyclerView.ViewHolder{
 
-        TextView textViewTitle,textViewDuration,textViewArtist;
+        TextView textViewGenreName;
+        ImageView imageViewGenre;
 
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            textViewTitle = itemView.findViewById(R.id.textViewItemPlaylistTitle);
-            textViewDuration = itemView.findViewById(R.id.textViewItemPlaylistSongs);
-            textViewArtist = itemView.findViewById(R.id.textViewItemArtist);
-            itemView.setOnClickListener(new View.OnClickListener() {
+            textViewGenreName = itemView.findViewById(R.id.textViewItemGenreName);
+            imageViewGenre = itemView.findViewById(R.id.imageViewItemGenreAlbum);
+
+            /*itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context, MusicPlayer.class);
@@ -38,29 +40,29 @@ public  class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder>
                     context.startActivity(intent);
 
                 }
-            });
+            });*/
 
         }
     }
 
-    public MusicAdapter(Context context, ArrayList<Music> music){
+    public GenreAdapter(Context context, ArrayList<Music> music){
         this.context = context;
         this.music = music;
     }
 
     @NonNull
     @Override
-    public MusicAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_song,parent,false);
+    public GenreAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.item_genre,parent,false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position){
         Music music = this.music.get(position);
-        holder.textViewTitle.setText(music.getTitle());
-        holder.textViewArtist.setText((music.getArtist()));
-        holder.textViewDuration.setText((music.getDurationFormatted()));
+        holder.textViewGenreName.setText(music.getGenre());
+        //holder.imageViewGenre.setImageIcon((music.getArtist()));
+
         holder.itemView.setTag(position);
     }
 

@@ -26,6 +26,40 @@ public class Music implements Serializable {
         return duration;
     }
 
+    public String getDurationFormatted(){
+        String time = "";
+        int second = duration/1000;
+        int min = second/60;
+        int hour = min/60;
+        second = second%60;
+        min = min%60;
+
+
+        if(hour > 0){
+            if(hour < 10){
+                time += "0"+hour;
+            }
+            else{
+                time+=hour;
+            }
+            time += ":";
+        }
+        if(min < 10){
+            time += "0"+min;
+        }
+        else{
+            time += min;
+        }
+        time += ":";
+        if(second < 10){
+            time += "0"+second;
+        }
+        else{
+            time += second;
+        }
+        return  time;
+    }
+
     public void setDuration(int duration) {
         this.duration = duration;
     }

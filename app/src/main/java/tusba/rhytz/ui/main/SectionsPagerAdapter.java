@@ -31,6 +31,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         Fragment fragment = PlaceholderFragment.newInstance((position+1));
         if(position==0) fragment = PlaceholderFragment.newInstance((position+1));
         else if(position == 1) fragment = SongsFragment.newInstance(((HomeActivity)mContext).music);
+        else if(position == 3) fragment = GenresFragment.newInstance(((HomeActivity)mContext).music);
 
         return fragment;
     }

@@ -3,17 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="#BC6B6B">
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="21dp" />
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -22,15 +17,47 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textViewTitle"
-                android:layout_width="wrap_content"
+                android:id="@+id/textViewItemPlaylistTitle"
+                android:layout_width="352dp"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:gravity="clip_horizontal"
+                android:text="TextView"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/textViewItemPlaylistSongs"
+                android:layout_width="45dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="clip_horizontal|center_horizontal"
+                android:text="00:00"
+                android:textSize="12sp" />
+
         </LinearLayout>
 
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textViewItemArtist"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="clip_horizontal"
+                android:text="TextView"
+                android:textSize="12sp" />
+        </LinearLayout>
+
     </LinearLayout>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="38dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

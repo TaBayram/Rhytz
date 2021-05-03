@@ -107,7 +107,6 @@ public class MusicLibrary extends AppCompatActivity {
                     if(ContextCompat.checkSelfPermission(MusicLibrary.this,
                             Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
                         Toast.makeText(this,"Permission Granted",Toast.LENGTH_SHORT).show();
-
                         Music();
                     }
                     else{
