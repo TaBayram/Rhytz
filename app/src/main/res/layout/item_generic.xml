@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp">
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="5dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/divider"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,25 +20,39 @@
             android:layout_width="48dp"
             android:layout_height="match_parent"
             android:layout_weight="0"
+            android:padding="1dp"
             app:srcCompat="@drawable/ic_menu_slideshow" />
 
-        <TextView
-            android:id="@+id/textViewItemGenericHeader"
-            android:layout_width="352dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="clip_horizontal"
-            android:text="TextView"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/textViewItemGenericFoot"
-            android:layout_width="64dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textViewItemGenericHeader"
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:gravity="clip_horizontal"
+                android:text="TextView"
+                android:textColor="#C3C3C3"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/textViewItemGenericFoot"
+                android:layout_width="320dp"
+                android:layout_height="match_parent"
+                android:text="16 songs"
+                android:textColor="#787878"
+                android:textSize="10sp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/buttonItemGenericMore"
+            android:layout_width="24dp"
+            android:layout_height="wrap_content"
             android:layout_weight="0"
-            android:gravity="clip_horizontal|center_horizontal"
-            android:text="16 songs"
-            android:textSize="12sp" />
+            android:background="@android:drawable/ic_menu_more" />
 
     </LinearLayout>
 

@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -50,8 +51,6 @@ public class HomeActivity extends AppCompatActivity {
         tabs.setupWithViewPager(viewPager);
 
 
-
-
         if(ContextCompat.checkSelfPermission(HomeActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             if(ActivityCompat.shouldShowRequestPermissionRationale(HomeActivity.this,
                     Manifest.permission.READ_EXTERNAL_STORAGE)){
@@ -71,12 +70,18 @@ public class HomeActivity extends AppCompatActivity {
 
 
     }
+
     private void Music(){
-        ArrayList<Music> musics = new ArrayList<>();
+        ArrayList<Music> musics = new ArrayList<Music>();
         ContentResolver contentResolver = getContentResolver();
         Uri songUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
 
-        Cursor songCursor = contentResolver.query(songUri,null,null,null,null);
+
+        String selection = MediaStore.Audio.Media.IS_MUSIC + "!= 0";
+        String sortOrder = MediaStore.Audio.Media.TITLE + " ASC";
+
+
+        Cursor songCursor = contentResolver.query(songUri,null,selection,null,sortOrder);
 
         if(songCursor != null && songCursor.moveToFirst()){
             int idColumn = songCursor.getColumnIndexOrThrow(MediaStore.Audio.Media._ID);
@@ -85,6 +90,7 @@ public class HomeActivity extends AppCompatActivity {
             int sizeColumn = songCursor.getColumnIndexOrThrow(MediaStore.Audio.Media.SIZE);
             int albumColumn = songCursor.getColumnIndex(MediaStore.Audio.Media.ALBUM);
             int artistColumn = songCursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ARTIST);
+            int artist2Column = songCursor.getColumnIndex(MediaStore.Audio.Media.ARTIST);
             int titleColumn = songCursor.getColumnIndex(MediaStore.Audio.Media.TITLE);
             int genreColumn = songCursor.getColumnIndex(MediaStore.Audio.Media.GENRE);
 
@@ -97,6 +103,9 @@ public class HomeActivity extends AppCompatActivity {
                 String artist = songCursor.getString(artistColumn);
                 String title = songCursor.getString(titleColumn);
                 String genre = songCursor.getString(genreColumn);
+                if(artist == null){
+                    artist = songCursor.getString(artist2Column);
+                }
 
                 Uri contentUri = ContentUris.withAppendedId(
                         MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, id);
@@ -104,9 +113,33 @@ public class HomeActivity extends AppCompatActivity {
 
                 musics.add(new Music(contentUri, name, duration, size, album, artist, title,genre));
             }while(songCursor.moveToNext());
-
             music = musics;
         }
+
+        songUri = MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI;
+        songCursor = contentResolver.query(songUri,null,null,null,null);
+
+        if(songCursor != null && songCursor.moveToFirst()) {
+
+            int albumColumn = songCursor.getColumnIndex(MediaStore.Audio.Albums.ALBUM);
+            int artistColumn = songCursor.getColumnIndex(MediaStore.Audio.Albums.ARTIST);
+            int artColumn = songCursor.getColumnIndex(MediaStore.Audio.Albums.ALBUM_ART);
+
+            do {
+                String album = songCursor.getString(albumColumn);
+                String artist = songCursor.getString(artistColumn);
+                String albumArt = songCursor.getString(artColumn);
+
+                for (Music song : musics) {
+                    if (song.getAlbum().equals(album) && song.getArtist().equals(artist)) {
+                        song.setAlbumArt(albumArt);
+                    }
+                }
+
+
+            } while (songCursor.moveToNext());
+        }
+
     }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

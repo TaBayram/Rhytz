@@ -17,7 +17,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textViewItemPlaylistTitle"
+                android:id="@+id/textViewItemGenericHeader"
                 android:layout_width="352dp"
                 android:layout_height="wrap_content"
                 android:gravity="clip_horizontal"
@@ -25,7 +25,7 @@
                 android:textSize="14sp" />
 
             <TextView
-                android:id="@+id/textViewItemPlaylistSongs"
+                android:id="@+id/textViewItemGenericFoot"
                 android:layout_width="45dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

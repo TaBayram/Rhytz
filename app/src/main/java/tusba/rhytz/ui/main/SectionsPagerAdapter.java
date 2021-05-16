@@ -28,11 +28,10 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        Fragment fragment = PlaceholderFragment.newInstance((position+1));
-        if(position==0) fragment = PlaceholderFragment.newInstance((position+1));
-        else if(position == 1) fragment = SongsFragment.newInstance(((HomeActivity)mContext).music);
+        Fragment fragment;
+        if(position==0) fragment = HomeFragment.newInstance((position));
         else if(position == 3) fragment = GenresFragment.newInstance(((HomeActivity)mContext).music);
-
+        else fragment = SongsFragment.newInstance(((HomeActivity)mContext).music,position);
         return fragment;
     }
 

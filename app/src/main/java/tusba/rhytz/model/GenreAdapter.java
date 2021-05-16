@@ -12,7 +12,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
+import tusba.rhytz.GenericSmallLibraryActivity;
 import tusba.rhytz.MusicPlayer;
 import tusba.rhytz.R;
 
@@ -20,27 +24,31 @@ public  class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.ViewHolder>
 
     Context context;
     ArrayList<Music> music;
+    TreeMap<String,ArrayList<Music>> treeMusic;
+    Map<Integer,String> keys = new HashMap<Integer, String>();
 
     public class ViewHolder extends  RecyclerView.ViewHolder{
 
-        TextView textViewGenreName;
+        TextView textViewGenreName,textViewFooter;
         ImageView imageViewGenre;
+
 
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewGenreName = itemView.findViewById(R.id.textViewItemGenreName);
+            textViewFooter = itemView.findViewById(R.id.textViewItemGenreFooter);
             imageViewGenre = itemView.findViewById(R.id.imageViewItemGenreAlbum);
 
-            /*itemView.setOnClickListener(new View.OnClickListener() {
+            itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context, MusicPlayer.class);
-                    intent.putExtra("song", music.get(Integer.parseInt(itemView.getTag().toString())));
+                    Intent intent = new Intent(context, GenericSmallLibraryActivity.class);
+                    intent.putExtra("music", treeMusic.get(keys.get(itemView.getTag())));
+                    intent.putExtra("type", 3);
                     context.startActivity(intent);
-
                 }
-            });*/
+            });
 
         }
     }
@@ -48,6 +56,21 @@ public  class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.ViewHolder>
     public GenreAdapter(Context context, ArrayList<Music> music){
         this.context = context;
         this.music = music;
+
+        Map<String,ArrayList<Music>> mapMusic = new HashMap<String, ArrayList<Music>>();
+        for(Music song: music){
+            if(mapMusic.get(song.getGenre()) == null){
+                mapMusic.put(song.getGenre(),new ArrayList<Music>());
+            }
+            mapMusic.get(song.getGenre()).add(song);
+        }
+        treeMusic = new TreeMap<String, ArrayList<Music>>();
+        treeMusic.putAll(mapMusic);
+        int i = 0;
+        for(Map.Entry<String, ArrayList<Music>> entry : treeMusic.entrySet()){
+            keys.put(i,entry.getKey());
+            i++;
+        }
     }
 
     @NonNull
@@ -59,15 +82,21 @@ public  class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.ViewHolder>
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position){
-        Music music = this.music.get(position);
-        holder.textViewGenreName.setText(music.getGenre());
+
+        if(keys.get(position) == null) return;
+        ArrayList<Music> music = this.treeMusic.get(keys.get(position));
+        if(music == null) return;
+        holder.textViewGenreName.setText(music.get(0).getGenre());
+        holder.textViewFooter.setText(music.size() +" Songs");
         //holder.imageViewGenre.setImageIcon((music.getArtist()));
+
+
 
         holder.itemView.setTag(position);
     }
 
     @Override
     public int getItemCount() {
-        return music.size();
+        return treeMusic.size();
     }
 }

@@ -3,6 +3,8 @@ package tusba.rhytz.model;
 import android.content.Context;
 import android.media.MediaPlayer;
 
+import java.util.ArrayList;
+
 public class MediaPlayerHelper {
     private static MediaPlayerHelper instance = null;
     public static MediaPlayerHelper getInstance() {
@@ -44,6 +46,7 @@ public class MediaPlayerHelper {
     }
 
     Music music;
+    ArrayList<Music> musicList;
     MediaPlayer mediaPlayer;
     boolean isReady = false;
 
@@ -78,11 +81,12 @@ public class MediaPlayerHelper {
         else{
             time += second;
         }
-
-
         return  time;
 
     }
+
+
+
 
 
 }

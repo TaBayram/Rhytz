@@ -101,7 +101,15 @@ public class Music implements Serializable {
     }
 
     public void setGenre(String genre) {
-        genre = genre;
+        this.genre = genre;
+    }
+
+    public String getAlbumArt() {
+        return albumArt;
+    }
+
+    public void setAlbumArt(String albumArt) {
+        this.albumArt = albumArt;
     }
 
     private String uri;
@@ -112,6 +120,7 @@ public class Music implements Serializable {
     private String artist;
     private String title;
     private String genre;
+    private String albumArt;
 
     public Music(Uri uri, String name, int duration, int size,String album, String artist, String title, String genre) {
         this.uri = uri.toString();
@@ -121,6 +130,21 @@ public class Music implements Serializable {
         this.album = album;
         this.artist = artist;
         this.title = title;
+        this.genre = genre;
+        if(this.title == null){
+            this.title = "undefined";
+        }
+        if(this.album == null){
+            this.album = "undefined";
+        }
+        if(this.artist == null){
+            this.artist = "undefined";
+        }
+        if(this.genre == null){
+            this.genre = "undefined";
+        }
+
+
     }
 }
 

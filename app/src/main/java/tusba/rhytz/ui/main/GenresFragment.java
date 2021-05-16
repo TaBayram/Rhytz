@@ -64,7 +64,7 @@ public class GenresFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         recyclerViewGenre = getView().findViewById(R.id.recyclerViewGenres);
         GenreAdapter genreAdapter = new GenreAdapter(getContext(),music);
-        recyclerViewGenre.setLayoutManager(new GridLayoutManager(getContext(), 3));
+        recyclerViewGenre.setLayoutManager(new GridLayoutManager(getContext(), 2));
         recyclerViewGenre.setAdapter(genreAdapter);
     }
 }

@@ -28,4 +28,7 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
+    <string name="local">Local</string>
+    <string name="stream">Stream</string>
+    <string name="mix">Mix</string>
 </resources>

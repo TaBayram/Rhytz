@@ -90,7 +90,7 @@ public class MusicLibrary extends AppCompatActivity {
                         MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, id);
 
 
-                musics.add(new Music(contentUri, name, duration, size, album, artist, title,genre));
+               // musics.add(new Music(contentUri, name, duration, size, album, artist, title,genre));
                 System.out.println(name);
             }while(songCursor.moveToNext());
 

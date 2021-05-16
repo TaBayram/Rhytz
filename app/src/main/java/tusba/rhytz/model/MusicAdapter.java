@@ -27,8 +27,8 @@ public  class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder>
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            textViewTitle = itemView.findViewById(R.id.textViewItemPlaylistTitle);
-            textViewDuration = itemView.findViewById(R.id.textViewItemPlaylistSongs);
+            textViewTitle = itemView.findViewById(R.id.textViewItemGenericHeader);
+            textViewDuration = itemView.findViewById(R.id.textViewItemGenericFoot);
             textViewArtist = itemView.findViewById(R.id.textViewItemArtist);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -32,7 +32,7 @@ public class BottomPlayerFragment extends Fragment {
     SeekBar seekBarMusic;
     TextView textViewTitle,textViewDuration;
     MediaPlayerHelper mediaPlayerHelper;
-
+    Fragment fragment;
 
     public BottomPlayerFragment() {
         // Required empty public constructor
@@ -68,9 +68,14 @@ public class BottomPlayerFragment extends Fragment {
         seekBarMusic = getView().findViewById(R.id.seekBarBottomMusic);
         mediaPlayerHelper = MediaPlayerHelper.getInstance();
         View layout = getView().findViewById(R.id.linearLayoutBottomMain);
+        fragment = this;
 
-
-
+        if(mediaPlayerHelper.getMediaPlayer().isPlaying()){
+            buttonPausePlay.setBackground(getResources().getDrawable(android.R.drawable.ic_media_pause));
+        }
+        else{
+            buttonPausePlay.setBackground(getResources().getDrawable(android.R.drawable.ic_media_play));
+        }
 
         buttonPausePlay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,10 +124,20 @@ public class BottomPlayerFragment extends Fragment {
          timer.schedule(new TimerTask() {
              @Override
              public void run() {
+                 if(getActivity() == null) {
+                     timer.cancel();
+                     return;
+                 }
                  getActivity().runOnUiThread(new Runnable() {
                      @Override
                      public void run() {
                          if(!mediaPlayerHelper.isReady()) return;
+                         if(mediaPlayerHelper.getMediaPlayer().isPlaying()){
+                             buttonPausePlay.setBackground(getResources().getDrawable(android.R.drawable.ic_media_pause));
+                         }
+                         else{
+                             buttonPausePlay.setBackground(getResources().getDrawable(android.R.drawable.ic_media_play));
+                         }
                          textViewTitle.setText(mediaPlayerHelper.getMusic().getTitle());
                          textViewDuration.setText(mediaPlayerHelper.GetTimeWithMiliSecond(mediaPlayerHelper.getMediaPlayer().getCurrentPosition())+"/"+mediaPlayerHelper.GetTimeWithMiliSecond(mediaPlayerHelper.getMediaPlayer().getDuration()));
                          seekBarMusic.setProgress(mediaPlayerHelper.getMediaPlayer().getCurrentPosition()*100/mediaPlayerHelper.getMediaPlayer().getDuration());

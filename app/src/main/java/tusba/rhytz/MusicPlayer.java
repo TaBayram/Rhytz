@@ -94,7 +94,6 @@ public class MusicPlayer extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-
                                 textViewCurrentPlace.setText(mediaPlayer.GetTimeWithMiliSecond(mp.getCurrentPosition()));
                                 seekBarMusic.setProgress(mp.getCurrentPosition()*100/mp.getDuration());
                             }
@@ -105,7 +104,7 @@ public class MusicPlayer extends AppCompatActivity {
             }
         });
 
-        if(mediaPlayer.getMediaPlayer().isPlaying()){
+        if(mediaPlayer.isReady()){
             textViewDuration.setText(mediaPlayer.GetTimeWithMiliSecond(mediaPlayer.getMediaPlayer().getDuration()));
             mediaPlayer.setReady(true);
             Timer timer = new Timer();
@@ -115,7 +114,6 @@ public class MusicPlayer extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-
                             textViewCurrentPlace.setText(mediaPlayer.GetTimeWithMiliSecond(mediaPlayer.getMediaPlayer().getCurrentPosition()));
                             seekBarMusic.setProgress(mediaPlayer.getMediaPlayer().getCurrentPosition()*100/mediaPlayer.getMediaPlayer().getDuration());
                         }
