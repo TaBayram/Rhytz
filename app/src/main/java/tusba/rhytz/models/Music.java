@@ -4,10 +4,18 @@ import java.io.Serializable;
 
 public class Music implements Serializable {
 
-    public String id,albumId,categoryId,duration,musicianId,name,source;
+    public String id;
+    public String albumId;
+    public String categoryId;
+    public String duration;
+    public String musicianId;
+    public String name;
+    public String source;
+
+    public String musicianName;
 
     public Music(){}
-    public Music(String id, String albumId, String categoryId, String duration, String musicianId, String name, String source) {
+    public Music(String id, String albumId, String categoryId, String duration, String musicianId, String name, String source, String musicianName) {
         this.id = id;
         this.albumId = albumId;
         this.categoryId = categoryId;
@@ -15,6 +23,7 @@ public class Music implements Serializable {
         this.musicianId = musicianId;
         this.name = name;
         this.source = source;
+        this.musicianName = musicianName;
     }
 
     public String getId() {
@@ -73,6 +82,9 @@ public class Music implements Serializable {
         this.source = source;
     }
 
+    public String getMusicianName() { return musicianName; }
+
+    public void setMusicianName(String musicianName) { this.musicianName = musicianName; }
 
 
 

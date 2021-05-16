@@ -1,15 +1,11 @@
 package tusba.rhytz.models;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +16,7 @@ import java.io.IOException;
 import java.util.List;
 
 import tusba.rhytz.R;
+import tusba.rhytz.ShowMusiciansMusic;
 import tusba.rhytz.ShowMusics;
 
 public class MusicAdapter extends ArrayAdapter {
@@ -45,12 +42,16 @@ public class MusicAdapter extends ArrayAdapter {
 
         View view = inflater.inflate(resourceID,null,false);
 
+        TextView musicianNameTxt = (TextView) view.findViewById(R.id.musicianNameTXT);
         TextView musicNameTXT = (TextView) view.findViewById(R.id.musicNameTXT);
+        TextView categoryTXT = (TextView) view.findViewById(R.id.categoryTXT);
         TextView durationTXT = (TextView) view.findViewById(R.id.durationTXT);
 
         final Music music = musicList.get(position);
 
+        musicianNameTxt.setText(music.getMusicianName());
         musicNameTXT.setText(music.getName());
+        categoryTXT.setText("Category : " + music.getCategoryId());
         durationTXT.setText(music.getDuration());
 
         view.setOnClickListener(new View.OnClickListener() {
@@ -58,7 +59,13 @@ public class MusicAdapter extends ArrayAdapter {
             public void onClick(View view) {
                 Toast.makeText(context,"basıldı",Toast.LENGTH_LONG).show();
                 try {
-                    ((ShowMusics)context).PlayMusic(musicList.get(position));
+                    if(context.getClass().getSimpleName().equals("ShowMusics")){
+                        ((ShowMusics)context).PlayMusic(musicList.get(position));
+                    }
+                    else if(context.getClass().getSimpleName().equals("ShowMusiciansMusic")){
+                        ((ShowMusiciansMusic)context).PlayMusic(musicList.get(position));
+                    }
+
                 } catch (IOException e) {
                     Log.i(""," HATA");
                 }

@@ -7,27 +7,36 @@
     android:background="@color/white"
     tools:context=".MainActivity" >
 
-    <LinearLayout
+    <EditText
+        android:id="@+id/singerNameTXT"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:hint="Şarkıcı Adı"
+        android:padding="20dp"
+        android:text="Abdullah Turgut"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="128dp"
+        android:layout_height="214dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+        app:layout_constraintStart_toStartOf="parent">
 
-        <EditText
-            android:id="@+id/singerNameTXT"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Şarkıcı Adı"
-            android:padding="20dp"
-            android:layout_margin="20dp"
-            android:textColorHint="@color/black"
-            android:textColor="@color/black"
-            />
 
         <Button
             android:id="@+id/getAllCategoriesBTN"
             android:layout_width="match_parent"
-            android:layout_height="78dp"
+            android:layout_height="wrap_content"
 
             android:onClick="GetAllCategories"
             android:text="GET CATEGORIES" />
@@ -35,7 +44,7 @@
         <Button
             android:id="@+id/addMusicianBTN"
             android:layout_width="match_parent"
-            android:layout_height="78dp"
+            android:layout_height="wrap_content"
 
             android:onClick="AddMusicianToFirebase"
             android:text="ADD A MUSICIAN" />
@@ -43,7 +52,7 @@
         <Button
             android:id="@+id/openAudioFileBTN"
             android:layout_width="match_parent"
-            android:layout_height="78dp"
+            android:layout_height="wrap_content"
 
             android:onClick="OpenAudioFile"
             android:text="LOAD MUSIC" />
@@ -51,26 +60,242 @@
         <Button
             android:id="@+id/loadMusicBTN"
             android:layout_width="match_parent"
-            android:layout_height="78dp"
+            android:layout_height="wrap_content"
 
             android:onClick="AddAudioToFirebase"
             android:text="UPLOAD TO FIREBASE" />
 
-        <Button
-            android:id="@+id/addUserBTN"
-            android:layout_width="match_parent"
-            android:layout_height="78dp"
+    </LinearLayout>
 
-            android:onClick="AddUserToFirebase"
-            android:text="ADD A USER" />
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="140dp"
+        android:layout_height="194dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="28dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/linearLayout4">
 
         <Button
             android:id="@+id/showMusicsBTN"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="50dp"
+            android:background="#252424"
             android:onClick="GoToShowMusics"
             android:text="SHOW MUSICS" />
+
+        <Button
+            android:id="@+id/showMusicianBTN"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="#252424"
+            android:onClick="GoToShowMusician"
+            android:text="SHOW MUSICIANS" />
+
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="121dp"
+        android:layout_height="215dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginRight="6dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+        app:layout_constraintEnd_toStartOf="@+id/linearLayout3"
+        app:layout_constraintHorizontal_bias="0.043"
+        app:layout_constraintStart_toEndOf="@+id/linearLayout2">
+
+        <Button
+            android:id="@+id/setPreferenceBTN"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="SetThemePreference"
+            android:text="Set Preference" />
+
+        <Button
+            android:id="@+id/getPreferenceBTN2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="GetThemePreference"
+            android:text="Get Preference" />
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="388dp"
+        android:layout_height="274dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/loginBTN"
+            android:layout_width="96dp"
+            android:layout_height="43dp"
+
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
+            android:onClick="LoginToApp"
+            android:text="LOGIN"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etLoginPassword" />
+
+        <EditText
+            android:id="@+id/etLoginPassword"
+            android:layout_width="144dp"
+            android:layout_height="41dp"
+            android:layout_marginStart="212dp"
+            android:layout_marginLeft="212dp"
+            android:ems="10"
+            android:hint="Password"
+            android:inputType="textPersonName"
+            android:textColor="#000000"
+            android:textColorHint="#494646"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etLoginMail" />
+
+        <Button
+            android:id="@+id/addUserBTN"
+            android:layout_width="132dp"
+            android:layout_height="49dp"
+
+            android:layout_marginEnd="88dp"
+            android:layout_marginRight="88dp"
+            android:layout_marginBottom="4dp"
+            android:onClick="AddUserToFirebase"
+            android:text="ADD A USER"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <EditText
+            android:id="@+id/etName"
+            android:layout_width="144dp"
+            android:layout_height="41dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="4dp"
+            android:ems="10"
+            android:hint="Name"
+            android:inputType="textPersonName"
+            android:textColor="#000000"
+            android:textColorHint="#494646"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/etMail"
+            android:layout_width="144dp"
+            android:layout_height="41dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="4dp"
+            android:ems="10"
+            android:hint="Mail"
+            android:inputType="textPersonName"
+            android:text="@gmail.com"
+            android:textColor="#000000"
+            android:textColorHint="#494646"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etSurname" />
+
+        <EditText
+            android:id="@+id/etUsername"
+            android:layout_width="144dp"
+            android:layout_height="41dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="4dp"
+            android:ems="10"
+            android:hint="Username"
+            android:inputType="textPersonName"
+            android:textColor="#000000"
+            android:textColorHint="#494646"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etMail" />
+
+        <EditText
+            android:id="@+id/etPassword"
+            android:layout_width="144dp"
+            android:layout_height="41dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="4dp"
+            android:ems="10"
+            android:hint="Password"
+            android:inputType="textPersonName"
+            android:text="sifre"
+            android:textColor="#000000"
+            android:textColorHint="#494646"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etUsername" />
+
+        <EditText
+            android:id="@+id/etGender"
+            android:layout_width="144dp"
+            android:layout_height="41dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:ems="10"
+            android:hint="Gender"
+            android:inputType="textPersonName"
+            android:text="Gender"
+            android:textColor="#000000"
+            android:textColorHint="#494646"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etPassword" />
+
+        <EditText
+            android:id="@+id/etSurname"
+            android:layout_width="144dp"
+            android:layout_height="41dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="4dp"
+            android:ems="10"
+            android:hint="Surname"
+            android:inputType="textPersonName"
+            android:textColor="#000000"
+            android:textColorHint="#494646"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etName" />
+
+        <EditText
+            android:id="@+id/etLoginMail"
+            android:layout_width="144dp"
+            android:layout_height="41dp"
+            android:layout_marginStart="212dp"
+            android:layout_marginLeft="212dp"
+            android:layout_marginTop="4dp"
+            android:ems="10"
+            android:hint="Email"
+            android:inputType="textPersonName"
+            android:textColor="#000000"
+            android:textColorHint="#494646"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

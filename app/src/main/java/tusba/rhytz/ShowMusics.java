@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -29,16 +31,24 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
 
+import tusba.rhytz.models.FirebaseClass;
+import tusba.rhytz.models.FirebaseInterface;
 import tusba.rhytz.models.Music;
 import tusba.rhytz.models.MusicAdapter;
+import tusba.rhytz.models.Musician;
+import tusba.rhytz.models.User;
 
-public class ShowMusics extends AppCompatActivity {
+public class ShowMusics extends AppCompatActivity implements FirebaseInterface {
 
+    FirebaseClass firebase;
     ListView musicLV;
     MediaPlayer mediaPlayer;
     List<Music> musicList;
+    List<Musician> musicianList;
+    Button btnGenre_All,btnGenre_1,btnGenre_2,btnGenre_3,btnGenre_4,btnGenre_5,btnGenre_6,btnGenre_7;
 
     public void ShowMusics(List<Music> musicList){
         this.musicList = musicList;
@@ -53,11 +63,77 @@ public class ShowMusics extends AppCompatActivity {
 
         musicLV = findViewById(R.id.musicLV);
 
-        Intent i = getIntent();
-        musicList = (List<Music>) i.getSerializableExtra("musicList");
+        firebase = new FirebaseClass(this.getApplicationContext());
 
-        Log.i("","music source : " + musicList.get(0).source);
-        SetMusicAdapter();
+        musicianList = new ArrayList<>();
+
+        btnGenre_All = findViewById(R.id.btnGenre_All);
+        btnGenre_1 = findViewById(R.id.btnGenre_1);
+        btnGenre_2 = findViewById(R.id.btnGenre_2);
+        btnGenre_3 = findViewById(R.id.btnGenre_3);
+        btnGenre_4 = findViewById(R.id.btnGenre_4);
+        btnGenre_5 = findViewById(R.id.btnGenre_5);
+        btnGenre_6 = findViewById(R.id.btnGenre_6);
+        btnGenre_7 = findViewById(R.id.btnGenre_7);
+
+        firebase.GetAllMusic(this);
+
+
+        btnGenre_All.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GetAllMusic();
+            }
+        });
+
+        btnGenre_1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GetMusicWithCategory("1");
+            }
+        });
+
+        btnGenre_2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GetMusicWithCategory("2");
+            }
+        });
+
+        btnGenre_3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GetMusicWithCategory("3");
+            }
+        });
+
+        btnGenre_4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GetMusicWithCategory("4");
+            }
+        });
+
+        btnGenre_5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GetMusicWithCategory("5");
+            }
+        });
+
+        btnGenre_6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GetMusicWithCategory("6");
+            }
+        });
+
+        btnGenre_7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GetMusicWithCategory("7");
+            }
+        });
 
     }
 
@@ -68,10 +144,12 @@ public class ShowMusics extends AppCompatActivity {
     }
 
     public void SetAdapter(List<Music> list){
-        //Toast.makeText(getApplicationContext(),String.valueOf(list.size()),Toast.LENGTH_LONG).show();
-        MusicAdapter adapter = new MusicAdapter(this,R.layout.music_layout,list);
-        musicLV.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+        if(list == null){musicLV.setAdapter(null); Toast.makeText(this,"Bu kategoriye ait müzik yok !", Toast.LENGTH_SHORT).show(); return;}
+        else{
+            MusicAdapter adapter = new MusicAdapter(this,R.layout.music_layout,list);
+            musicLV.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
+        }
     }
 
     public void PlayMusic(Music music) throws IOException {
@@ -96,4 +174,111 @@ public class ShowMusics extends AppCompatActivity {
         mediaPlayer.prepareAsync();
     }
 
+    public void GetAllMusic(){
+        firebase.GetAllMusic(this);
+    }
+
+    public void GetMusicWithCategory(String genre){
+        firebase.GetMusicWithGenre(this,genre);
+    }
+
+
+
+
+
+    ///////////////////////////////////////////
+    ///////////////////////////////////////////
+            //Interface Functions
+    ///////////////////////////////////////////
+    ///////////////////////////////////////////
+
+    @Override
+    public void AddAudioToFirebaseResult(boolean result) {
+
+    }
+
+    @Override
+    public void AddMusicianToFirebaseResult(boolean result) {
+
+    }
+
+    @Override
+    public void AddUserToFirebaseResult(boolean result) {
+
+    }
+
+    @Override
+    public void GetCategoriesResult(Hashtable<String, String> list) {
+
+    }
+
+    @Override
+    public void GetAllMusicResult(List<Music> list) {
+        musicList = list;
+        if(list != null){
+            if(list.size() < 1){SetAdapter(null); return;}
+            ArrayList<String> idList = new ArrayList<>();
+            for(Music music:list){idList.add(music.getMusicianId());}
+
+            firebase.GetMusicianWithId(this,idList);
+        }
+        else{ SetAdapter(null); return;}
+    }
+
+    @Override
+    public void GetMusicWithGenreResult(List<Music> list) {
+        musicList = list;
+        if(list != null){
+            if(list.size() < 1){SetAdapter(null); return;}
+            ArrayList<String> idList = new ArrayList<>();
+            for(Music music:list){idList.add(music.getMusicianId());}
+
+            firebase.GetMusicianWithId(this,idList);
+        }
+        else{ SetAdapter(null); return;}
+    }
+
+    @Override
+    public void GetMusicWithMusicianIdResult(List<Music> list) {
+
+    }
+
+    @Override
+    public void GetAllMusicianResult(List<Musician> list) {
+
+    }
+
+    @Override
+    public void GetMusicianWithIdResult(List<Musician> list) {
+        for(int i = 0; i<list.size(); i++){
+            musicList.get(i).setMusicianName(list.get(i).getName());
+        }
+
+        SetAdapter(musicList);
+    }
+
+    @Override
+    public void GetUserInfoWithMailResult(User user) {
+
+    }
+
+    @Override
+    public void CheckMailExistResult(boolean result) {
+
+    }
+
+    @Override
+    public void CheckUsernameExistResult(boolean result) {
+
+    }
+
+    @Override
+    public void LoginToAppResult(boolean result) {
+
+    }
+
+    @Override
+    public void TESTINT(List<String> list) {
+
+    }
 }
