@@ -15,6 +15,8 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -22,7 +24,7 @@ import java.util.ArrayList;
 import tusba.rhytz.model.Music;
 import tusba.rhytz.model.MusicAdapter;
 
-public class MusicLibrary extends AppCompatActivity {
+public class MusicLibrary extends SlideMenu{
 
     private static final int PERMISSION_REQUEST = 1;
     RecyclerView recyclerViewSongs;
@@ -31,8 +33,9 @@ public class MusicLibrary extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_music_library);
-
+        LayoutInflater inflater= LayoutInflater.from(this);
+        View v = inflater.inflate(R.layout.activity_music_library,null,false);
+        drawer.addView(v,0);
         recyclerViewSongs = findViewById(R.id.recyclerViewSongs);
 
 

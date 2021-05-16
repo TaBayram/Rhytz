@@ -1,6 +1,7 @@
 package tusba.rhytz.model;
 
 public class User {
+    String Id;
     String Name;
     String Surname;
     String Email;
@@ -8,6 +9,24 @@ public class User {
     String Password;
     String Gender;
 
+    public User(){}
+    public User(String id, String name, String surname, String email, String username, String password, String gender) {
+        Id = id;
+        Name = name;
+        Surname = surname;
+        Email = email;
+        Username = username;
+        Password = password;
+        Gender = gender;
+    }
+
+    public String getId() {
+        return Id;
+    }
+
+    public void setId(String id) {
+        Id = id;
+    }
 
     public String getName() {
         return Name;

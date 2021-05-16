@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -46,8 +47,8 @@ import tusba.rhytz.models.FirebaseInterface;
 import tusba.rhytz.models.Music;
 import tusba.rhytz.models.MusicianInfo;
 
-public class MainActivity extends AppCompatActivity implements FirebaseInterface {
-    Button logout;
+public class MainActivity extends SlideMenu implements FirebaseInterface {
+
     Uri audioUri;
     FirebaseClass firebase;
 
@@ -55,21 +56,11 @@ public class MainActivity extends AppCompatActivity implements FirebaseInterface
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        LayoutInflater inflater= LayoutInflater.from(this);
+        View v = inflater.inflate(R.layout.activity_main,null,false);
+        drawer.addView(v,0);
 
-        logout = findViewById(R.id.btnLogout);
 
-        logout.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                SharedPreferences preferences = getSharedPreferences("checkbox",MODE_PRIVATE);
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putString("remember","false");
-                editor.apply();
-
-                finish();
-            }
-        });
         firebase = new FirebaseClass(this.getApplicationContext());
 
     }
