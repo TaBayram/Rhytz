@@ -214,8 +214,7 @@ public class MainActivity extends SlideMenu implements FirebaseInterface {
     public void AddAudioToFirebase(View view){
         String fileExtension = GetFileExtension(audioUri);
         int songDuration = GetSongDuration(audioUri);
-        String durationFromMilli = GetDurationFromMilli(songDuration);
-        firebase.AddAudioToFirebase(this,audioUri,fileExtension,songDuration,durationFromMilli);
+        firebase.AddAudioToFirebase(this,audioUri,fileExtension,songDuration,songDuration);
     }
     public void AddMusicianToFirebase(View view){
         String musicianName = String.valueOf(musicianNameTxt.getText());
@@ -281,12 +280,7 @@ public class MainActivity extends SlideMenu implements FirebaseInterface {
             return 0;
         }
     }
-    public String GetDurationFromMilli(int milliSec){
-        Date date = new Date(milliSec);
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("mm:ss", Locale.getDefault());
-        String time = simpleDateFormat.format(date);
-        return time;
-    }
+
     private String GetFileExtension(Uri audioUri){
         ContentResolver contentResolver = getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();

@@ -1,9 +1,11 @@
-package tusba.rhytz.model;
+package tusba.rhytz.helpers;
 
 import android.content.Context;
 import android.media.MediaPlayer;
 
 import java.util.ArrayList;
+
+import tusba.rhytz.models.Music;
 
 public class MediaPlayerHelper {
     private static MediaPlayerHelper instance = null;

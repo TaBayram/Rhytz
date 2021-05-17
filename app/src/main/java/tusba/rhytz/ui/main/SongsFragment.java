@@ -14,9 +14,8 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import tusba.rhytz.R;
-import tusba.rhytz.model.GenericAdapter;
-import tusba.rhytz.model.Music;
-import tusba.rhytz.model.MusicAdapter;
+import tusba.rhytz.helpers.GenericAdapter;
+import tusba.rhytz.models.Music;
 
 
 public class SongsFragment extends Fragment {

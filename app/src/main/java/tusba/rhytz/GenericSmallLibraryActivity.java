@@ -13,8 +13,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import tusba.rhytz.model.GenericAdapter;
-import tusba.rhytz.model.Music;
+import tusba.rhytz.helpers.GenericAdapter;
+import tusba.rhytz.models.Music;
 
 public class GenericSmallLibraryActivity extends AppCompatActivity {
 

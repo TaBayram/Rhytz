@@ -1,4 +1,4 @@
-package tusba.rhytz.model;
+package tusba.rhytz.helpers;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,8 +17,8 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import tusba.rhytz.GenericSmallLibraryActivity;
-import tusba.rhytz.MusicPlayer;
 import tusba.rhytz.R;
+import tusba.rhytz.models.Music;
 
 public  class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.ViewHolder> {
 

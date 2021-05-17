@@ -7,10 +7,7 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,8 +19,7 @@ import android.widget.Toast;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import tusba.rhytz.model.MediaPlayerHelper;
-import tusba.rhytz.model.MusicAdapter;
+import tusba.rhytz.helpers.MediaPlayerHelper;
 
 
 public class BottomPlayerFragment extends Fragment {

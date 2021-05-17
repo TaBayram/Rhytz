@@ -7,13 +7,12 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import tusba.rhytz.model.User;
+import tusba.rhytz.models.User;
 
 public class RegisterActivity extends AppCompatActivity {
     TextView tvMessage;

@@ -78,12 +78,12 @@ public class FirebaseClass {
 
     }
 
-    public void AddAudioToFirebase(FirebaseInterface object,Uri audioUri,String fileExtension,int songDuration, String durationFromMilli){
+    public void AddAudioToFirebase(FirebaseInterface object,Uri audioUri,String fileExtension,int songDuration, int durationFromMilli){
 
         if(audioUri != null){
             StorageReference storageReference = firebaseStorage.child(System.currentTimeMillis() + "." + fileExtension);
             int millisDuration = songDuration;
-            String duration = durationFromMilli;
+            int duration = durationFromMilli;
 
             mUploadTast = storageReference.putFile(audioUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
@@ -110,7 +110,7 @@ public class FirebaseClass {
 
     }
 
-    public void AddMusicToMusician(String source, String name, String musicianId, String albumId, String categoryId, String duration) {
+    public void AddMusicToMusician(String source, String name, String musicianId, String albumId, String categoryId, int duration) {
         String musicId = source.substring(source.indexOf(".mp3") - 13, source.indexOf(".mp3"));
         source = "https://firebasestorage.googleapis.com" + source + "?alt=media";
         CollectionReference collectionReference = firestore.collection("musicians").document(musicianId).collection("musics");

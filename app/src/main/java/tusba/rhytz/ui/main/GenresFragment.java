@@ -5,7 +5,6 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -15,9 +14,8 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import tusba.rhytz.R;
-import tusba.rhytz.model.GenreAdapter;
-import tusba.rhytz.model.Music;
-import tusba.rhytz.model.MusicAdapter;
+import tusba.rhytz.helpers.GenreAdapter;
+import tusba.rhytz.models.Music;
 
 /**
  * A simple {@link Fragment} subclass.

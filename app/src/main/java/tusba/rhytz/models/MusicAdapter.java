@@ -49,7 +49,7 @@ public class MusicAdapter extends ArrayAdapter {
 
         final Music music = musicList.get(position);
 
-        musicianNameTxt.setText(music.getMusicianName());
+        musicianNameTxt.setText(music.getArtist());
         musicNameTXT.setText(music.getName());
         categoryTXT.setText("Category : " + music.getCategoryId());
         durationTXT.setText(music.getDuration());

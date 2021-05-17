@@ -140,7 +140,7 @@ public class ShowMusiciansMusic extends AppCompatActivity implements FirebaseInt
     @Override
     public void GetMusicianWithIdResult(List<Musician> list) {
         for(int i = 0; i<list.size(); i++){
-            musicList.get(i).setMusicianName(list.get(i).getName());
+            musicList.get(i).setArtist(list.get(i).getName());
         }
 
         SetAdapter(musicList);

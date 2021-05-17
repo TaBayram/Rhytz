@@ -56,7 +56,7 @@ public class SlideMenu extends AppCompatActivity {
         btnLibrary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent_backto_library = new Intent(SlideMenu.this,MusicLibrary.class);
+                Intent intent_backto_library = new Intent(SlideMenu.this,HomeActivity.class);
                 startActivity(intent_backto_library);
             }
         });

@@ -1,4 +1,4 @@
-package tusba.rhytz.model;
+package tusba.rhytz.helpers;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 import tusba.rhytz.MusicPlayer;
 import tusba.rhytz.R;
+import tusba.rhytz.models.Music;
 
 public  class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> {
 

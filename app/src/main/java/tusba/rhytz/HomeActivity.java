@@ -8,31 +8,20 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
-import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Environment;
 import android.provider.MediaStore;
-import android.transition.Slide;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import tusba.rhytz.model.Music;
-import tusba.rhytz.model.MusicAdapter;
+import tusba.rhytz.models.Music;
 import tusba.rhytz.ui.main.SectionsPagerAdapter;
 
 public class HomeActivity extends SlideMenu {

@@ -18,33 +18,12 @@
         <activity
             android:name=".HomeActivity"
             android:label="@string/title_activity_home">
-            
         </activity>
-
         <activity android:name=".ShowMusiciansMusic"></activity>
         <activity android:name=".ShowMusicians" />
         <activity android:name=".ShowMusics" />
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".MusicLibrary">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".MusicPlayer">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".MainActivity"> </activity>
+        <activity android:name=".MusicPlayer"> </activity>
         <activity android:name=".SettingsActivity"></activity>
         <activity android:name=".ProfilePage" />
         <activity android:name=".SlideMenu" />
