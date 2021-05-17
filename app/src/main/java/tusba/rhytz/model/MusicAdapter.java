@@ -18,7 +18,7 @@ import tusba.rhytz.R;
 public  class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> {
 
     Context context;
-    ArrayList<Music> music;
+    ArrayList<Music> music= new ArrayList<>();
 
     public class ViewHolder extends  RecyclerView.ViewHolder{
 

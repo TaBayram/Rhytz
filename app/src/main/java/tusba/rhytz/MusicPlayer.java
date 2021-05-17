@@ -2,12 +2,17 @@ package tusba.rhytz;
 
 
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.media.TimedText;
+import android.media.audiofx.AudioEffect;
 import android.os.Bundle;
 
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
@@ -21,7 +26,7 @@ import tusba.rhytz.model.MediaPlayerHelper;
 import tusba.rhytz.model.Music;
 
 
-public class MusicPlayer extends AppCompatActivity {
+public class MusicPlayer extends SlideMenu {
 
     TextView textViewSongName ;
     TextView textViewSingerName ;
@@ -32,13 +37,17 @@ public class MusicPlayer extends AppCompatActivity {
     SeekBar seekBarMusic;
     boolean isMediaPlayerReady = false;
     Music music;
+    Button equBtn;
+    int sessionId;
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_music_player);
+        LayoutInflater inflater= LayoutInflater.from(this);
+        View v = inflater.inflate(R.layout.activity_music_player,null,false);
+        drawer.addView(v,0);
         Bundle bundle = getIntent().getExtras();
         music =(Music)bundle.getSerializable("song");
 
@@ -73,6 +82,8 @@ public class MusicPlayer extends AppCompatActivity {
         }
 
 
+        mediaPlayer = MediaPlayer.create(this, music.getUri());
+        equBtn = (Button) findViewById(R.id.buttonEqualizer);
        AttachListeners();
 
     }
@@ -190,6 +201,60 @@ public class MusicPlayer extends AppCompatActivity {
                 }
             }
         });
+
+        equBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sessionId = mediaPlayer.getAudioSessionId();
+                Intent intent = new Intent(AudioEffect.ACTION_DISPLAY_AUDIO_EFFECT_CONTROL_PANEL);
+                intent.putExtra(AudioEffect.EXTRA_AUDIO_SESSION,sessionId);
+                startActivityForResult(intent,123);
+            }
+        });
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==123 && resultCode==RESULT_OK){
+            return;
+        }
+    }
+
+    private String GetTimeWithMiliSecond(int milisecond){
+        String time = "";
+        int second = milisecond/1000;
+        int min = second/60;
+        int hour = min/60;
+        second = second%60;
+        min = min%60;
+
+
+        if(hour > 0){
+            if(hour < 10){
+                time += "0"+hour;
+            }
+            else{
+                time+=hour;
+            }
+            time += ":";
+        }
+        if(min < 10){
+            time += "0"+min;
+        }
+        else{
+            time += min;
+        }
+        time += ":";
+        if(second < 10){
+            time += "0"+second;
+        }
+        else{
+            time += second;
+        }
+
+        return  time;
+
     }
 }
-

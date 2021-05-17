@@ -42,6 +42,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".SettingsActivity"></activity>
+        <activity android:name=".ProfilePage" />
+        <activity android:name=".SlideMenu" />
+        <activity android:name=".MusicLibrary" />
+        <activity android:name=".MusicPlayer" />
         <activity android:name=".ShowMusics" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".LoginActivity">

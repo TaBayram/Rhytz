@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -34,7 +36,7 @@ import java.util.List;
 import tusba.rhytz.models.Music;
 import tusba.rhytz.models.MusicAdapter;
 
-public class ShowMusics extends AppCompatActivity {
+public class ShowMusics extends SlideMenu {
 
     ListView musicLV;
     MediaPlayer mediaPlayer;
@@ -49,7 +51,9 @@ public class ShowMusics extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show_musics);
+        LayoutInflater inflater= LayoutInflater.from(this);
+        View v = inflater.inflate(R.layout.activity_show_musics,null,false);
+        drawer.addView(v,0);
 
         musicLV = findViewById(R.id.musicLV);
 
