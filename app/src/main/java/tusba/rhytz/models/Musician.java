@@ -1,12 +1,12 @@
 package tusba.rhytz.models;
 
-public class MusicianInfo {
-    String id,name,musicCount;
+public class Musician {
+    public String id,name;
 
-    public MusicianInfo(String id, String name, String musicCount) {
+    public Musician(){}
+    public Musician(String id, String name) {
         this.id = id;
         this.name = name;
-        this.musicCount = musicCount;
     }
 
     public String getId() {
@@ -25,11 +25,4 @@ public class MusicianInfo {
         this.name = name;
     }
 
-    public String getMusicCount() {
-        return musicCount;
-    }
-
-    public void setMusicCount(String musicCount) {
-        this.musicCount = musicCount;
-    }
 }

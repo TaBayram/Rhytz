@@ -22,6 +22,10 @@
         <activity
             android:name=".HomeActivity"
             android:label="@string/title_activity_home">
+        <activity android:name=".ShowMusiciansMusic"></activity>
+        <activity android:name=".ShowMusicians" />
+        <activity android:name=".ShowMusics" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

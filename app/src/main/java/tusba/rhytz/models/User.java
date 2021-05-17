@@ -1,57 +1,78 @@
 package tusba.rhytz.models;
 
 public class User {
-    public String id;
-    public String username;
-    public String mail;
-    public String password;
-    public String gender;
+    String Id;
+    String Name;
+    String Surname;
+    String Email;
+    String Username;
+    String Password;
+    String Gender;
 
-    public User(String id, String username, String mail, String password, String gender) {
-        this.id = id;
-        this.username = username;
-        this.mail = mail;
-        this.password = password;
-        this.gender = gender;
+    public User(){}
+    public User(String id, String name, String surname, String email, String username, String password, String gender) {
+        Id = id;
+        Name = name;
+        Surname = surname;
+        Email = email;
+        Username = username;
+        Password = password;
+        Gender = gender;
     }
 
     public String getId() {
-        return id;
+        return Id;
     }
 
     public void setId(String id) {
-        this.id = id;
+        Id = id;
+    }
+
+    public String getName() {
+        return Name;
+    }
+
+    public void setName(String name) {
+        Name = name;
+    }
+
+    public String getSurname() {
+        return Surname;
+    }
+
+    public void setSurname(String surname) {
+        Surname = surname;
+    }
+
+    public String getEmail() {
+        return Email;
+    }
+
+    public void setEmail(String email) {
+        Email = email;
     }
 
     public String getUsername() {
-        return username;
+        return Username;
     }
 
     public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getMail() {
-        return mail;
-    }
-
-    public void setMail(String mail) {
-        this.mail = mail;
+        Username = username;
     }
 
     public String getPassword() {
-        return password;
+        return Password;
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        Password = password;
     }
 
     public String getGender() {
-        return gender;
+        return Gender;
     }
 
     public void setGender(String gender) {
-        this.gender = gender;
+        Gender = gender;
     }
 }
