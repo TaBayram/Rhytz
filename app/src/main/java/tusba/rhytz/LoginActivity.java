@@ -90,7 +90,7 @@ public class LoginActivity extends AppCompatActivity {
             etPassword.requestFocus();
             return;
         }
-        Intent intent_to_login = new Intent(LoginActivity.this,MainActivity.class);
+        Intent intent_to_login = new Intent(LoginActivity.this,HomeActivity.class);
         startActivity(intent_to_login);
 
 

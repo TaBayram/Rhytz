@@ -58,7 +58,6 @@ public class MediaPlayerHelper {
         second = second%60;
         min = min%60;
 
-
         if(hour > 0){
             if(hour < 10){
                 time += "0"+hour;

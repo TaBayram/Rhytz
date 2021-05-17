@@ -16,12 +16,11 @@
         android:theme="@style/Theme.Rhytz">
         <activity android:name=".GenericSmallLibraryActivity"></activity>
         <activity
-            android:name=".MainActivity2"
-            android:label="@string/title_activity_main2"
-            android:theme="@style/Theme.Rhytz.NoActionBar"></activity>
-        <activity
             android:name=".HomeActivity"
             android:label="@string/title_activity_home">
+            
+        </activity>
+
         <activity android:name=".ShowMusiciansMusic"></activity>
         <activity android:name=".ShowMusicians" />
         <activity android:name=".ShowMusics" />
@@ -49,22 +48,12 @@
         <activity android:name=".SettingsActivity"></activity>
         <activity android:name=".ProfilePage" />
         <activity android:name=".SlideMenu" />
-        <activity android:name=".MusicLibrary" />
-        <activity android:name=".MusicPlayer" />
-        <activity android:name=".ShowMusics" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
     </application>

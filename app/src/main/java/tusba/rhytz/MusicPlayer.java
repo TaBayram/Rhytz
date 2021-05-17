@@ -82,9 +82,9 @@ public class MusicPlayer extends SlideMenu {
         }
 
 
-        mediaPlayer = MediaPlayer.create(this, music.getUri());
+        //mediaPlayer = MediaPlayer.create(this, music.getUri());
         equBtn = (Button) findViewById(R.id.buttonEqualizer);
-       AttachListeners();
+        AttachListeners();
 
     }
 
@@ -205,7 +205,7 @@ public class MusicPlayer extends SlideMenu {
         equBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sessionId = mediaPlayer.getAudioSessionId();
+                sessionId = mediaPlayer.getMediaPlayer().getAudioSessionId();
                 Intent intent = new Intent(AudioEffect.ACTION_DISPLAY_AUDIO_EFFECT_CONTROL_PANEL);
                 intent.putExtra(AudioEffect.EXTRA_AUDIO_SESSION,sessionId);
                 startActivityForResult(intent,123);

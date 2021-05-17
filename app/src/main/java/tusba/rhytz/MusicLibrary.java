@@ -39,7 +39,7 @@ public class MusicLibrary extends SlideMenu{
         LayoutInflater inflater= LayoutInflater.from(this);
         View v = inflater.inflate(R.layout.activity_music_library,null,false);
         drawer.addView(v,0);
-        recyclerViewSongs = findViewById(R.id.recyclerViewSongs);
+        //recyclerViewSongs = findViewById(R.id.recyclerViewSongs);
 
 
 

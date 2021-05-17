@@ -22,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.transition.Slide;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,7 +35,7 @@ import tusba.rhytz.model.Music;
 import tusba.rhytz.model.MusicAdapter;
 import tusba.rhytz.ui.main.SectionsPagerAdapter;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends SlideMenu {
 
     private static final int PERMISSION_REQUEST = 1;
     public ArrayList<Music> music;
