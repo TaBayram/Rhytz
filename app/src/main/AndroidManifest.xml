@@ -14,6 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Rhytz">
+<<<<<<< HEAD
         <activity android:name=".SleepActivity"></activity>
         <activity android:name=".GenericSmallLibraryActivity" />
         <activity
@@ -25,6 +26,9 @@
         <activity android:name=".MainActivity"></activity>
         <activity android:name=".MusicPlayer"></activity>
         <activity android:name=".SettingsActivity" />
+=======
+        <activity android:name=".SettingsActivity"></activity>
+>>>>>>> parent of 014f814 (v 0.1.3)
         <activity android:name=".ProfilePage" />
         <activity android:name=".SlideMenu" />
         <activity android:name=".RegisterActivity" />

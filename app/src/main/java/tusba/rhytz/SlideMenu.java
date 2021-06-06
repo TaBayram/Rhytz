@@ -70,8 +70,13 @@ public class SlideMenu extends AppCompatActivity {
         btnSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+<<<<<<< HEAD
                 Intent intent = new Intent(SlideMenu.this,SettingsActivity.class);
                 startActivity(intent);
+=======
+                Intent intent_to_settings = new Intent(SlideMenu.this,SettingsActivity.class);
+                startActivity(intent_to_settings);
+>>>>>>> parent of 014f814 (v 0.1.3)
             }
         });
 

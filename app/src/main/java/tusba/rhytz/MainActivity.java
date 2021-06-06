@@ -1,5 +1,6 @@
 package tusba.rhytz;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,7 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 import android.content.ContentResolver;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.media.MediaMetadataRetriever;
@@ -20,17 +20,27 @@ import android.provider.OpenableColumns;
 import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
-import android.widget.EditText;
 import android.widget.Toast;
+
+/*
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
+import com.google.firebase.storage.UploadTask;*/
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Hashtable;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import tusba.rhytz.DAO.FavoriteListDao;
 import tusba.rhytz.Entity.FavoriteList;
@@ -39,16 +49,19 @@ import tusba.rhytz.models.FirebaseClass;
 import tusba.rhytz.models.FirebaseInterface;
 import tusba.rhytz.models.LocalDatabase;
 import tusba.rhytz.models.Music;
-import tusba.rhytz.models.Musician;
-import tusba.rhytz.models.User;
+import tusba.rhytz.models.MusicianInfo;
 
 public class MainActivity extends SlideMenu implements FirebaseInterface {
 
     Uri audioUri;
     FirebaseClass firebase;
+<<<<<<< HEAD
     LocalDatabase localDatabase;
     EditText musicianNameTxt;
     EditText etName,etSurname,etMail,etUsername,etPassword,etGender,etLoginMail,etLoginPassword;
+=======
+
+>>>>>>> parent of 014f814 (v 0.1.3)
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +71,7 @@ public class MainActivity extends SlideMenu implements FirebaseInterface {
         drawer.addView(v,0);
 
 
+<<<<<<< HEAD
         musicianNameTxt = findViewById(R.id.singerNameTXT);
 
         etName = findViewById(R.id.etName);
@@ -71,14 +85,144 @@ public class MainActivity extends SlideMenu implements FirebaseInterface {
 
         firebase = new FirebaseClass(this.getApplicationContext());
         localDatabase = new LocalDatabase(this.getApplicationContext());
+=======
+        firebase = new FirebaseClass(this.getApplicationContext());
 
     }
 
-    ///////////////////////////////////////////
-    ///////////////////////////////////////////
-    // Firebase Interface
-    ///////////////////////////////////////////
-    ///////////////////////////////////////////
+    //
+    // RESULTS FUNCTIONS
+    //
+
+    @Override
+    public void AddAudioToFirebaseResult(boolean result) {
+        if(result){Log.i("","Müzik başarılı bir şekilde yüklendi");}
+        else{Log.i("","Müzik yüklenemedi !");}
+    }
+
+    @Override
+    public void AddMusicianToFirebaseResult(boolean result) {
+        if(result){Log.i("","Müzisyen başarılı bir şekilde eklendi");}
+        else{Log.i("","Müzisyen eklenemedi !");}
+    }
+
+    @Override
+    public void AddUserToFirebaseResult(boolean result) {
+        if(result){Log.i("","Kullanıcı başarılı bir şekilde eklendi");}
+        else{Log.i("","Kullanıcı eklenemedi !");}
+    }
+
+    @Override
+    public void GetCategoriesResult(List<String> list) {
+        for(String item : list){
+            Log.i("",item);
+        }
+    }
+
+    @Override
+    public void GetAllMusicResult(List<Music> list) {
+        Log.i("","liste boyuyu : " + String.valueOf(list.size()));
+        Intent intent = new Intent(this, ShowMusics.class);
+        intent.putExtra("musicList",(Serializable) list);
+        startActivity(intent);
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+>>>>>>> parent of 014f814 (v 0.1.3)
+
+        if(requestCode == 101 && resultCode == RESULT_OK && data.getData() != null ){
+            audioUri = data.getData();
+            String fileName = GetFileName(audioUri);
+        }
+    }
+    public void GetAllCategories(View view){
+        firebase.GetCategories(this);
+    }
+    public void AddAudioToFirebase(View view){
+        String fileExtension = GetFileExtension(audioUri);
+        int songDuration = GetSongDuration(audioUri);
+        String durationFromMilli = GetDurationFromMilli(songDuration);
+        firebase.AddAudioToFirebase(this,audioUri,fileExtension,songDuration,durationFromMilli);
+    }
+    public void AddMusicianToFirebase(View view){
+        firebase.AddMusicianToFirabase(this);
+    }
+    public void AddUserToFirebase(View view){
+        firebase.AddUserToFirebase(this,"ysf.sl","uslu.yusuf@std.izu.edu.tr","password123","male");
+    }
+
+
+    public void OpenAudioFile(View v){
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("audio/*");
+        startActivityForResult(intent,101);
+    }
+    public String GetFileName(Uri uri){
+
+        String result = null;
+        if(uri.getScheme().equals("content")){
+            Cursor cursor = getContentResolver().query(uri,null,null,null,null);
+
+            try {
+                    if(cursor!=null && cursor.moveToFirst()){
+                        result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                    }
+            }
+            finally {
+                cursor.close();
+            }
+        }
+
+        if(result == null){
+            result = uri.getPath();
+            int cut = result.lastIndexOf('/');
+            if(cut!=-1){
+                result = result.substring(cut + 1);
+            }
+        }
+
+        return  result;
+    }
+    public int GetSongDuration(Uri audioUri){
+        int duration = 0;
+
+        try {
+            MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+            retriever.setDataSource(this,audioUri);
+            String time = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
+            duration = Integer.parseInt(time);
+
+            retriever.release();
+            return duration;
+        }
+        catch (Exception ex){
+            ex.printStackTrace();
+            return 0;
+        }
+    }
+    public String GetDurationFromMilli(int milliSec){
+        Date date = new Date(milliSec);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("mm:ss", Locale.getDefault());
+        String time = simpleDateFormat.format(date);
+        return time;
+    }
+    private String GetFileExtension(Uri audioUri){
+        ContentResolver contentResolver = getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(contentResolver.getType(audioUri));
+    }
+    public void GoToShowMusics(View view){
+        Intent intent = new Intent(this, MusicLibrary.class);
+        this.startActivity(intent);
+
+        //firebase.GetAllMusic(this);
+    }
 
     @Override
     public void AddAudioToFirebaseResult(boolean result) {
