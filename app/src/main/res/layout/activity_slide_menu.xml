@@ -74,15 +74,6 @@
                 android:layout_height="20dp" />
 
             <Button
-                android:id="@+id/menuSettings"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@drawable/ic_baseline_settings_24" />
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="20dp" />
-
-            <Button
                 android:id="@+id/menuLogout"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
