@@ -7,15 +7,24 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import tusba.rhytz.model.User;
+import java.util.Hashtable;
+import java.util.List;
 
-public class RegisterActivity extends AppCompatActivity {
+import tusba.rhytz.models.User;
+import tusba.rhytz.models.FirebaseClass;
+import tusba.rhytz.models.FirebaseInterface;
+import tusba.rhytz.models.Music;
+import tusba.rhytz.models.Musician;
+
+public class RegisterActivity extends AppCompatActivity implements FirebaseInterface {
+
+    FirebaseClass firebase;
     TextView tvMessage;
     EditText etName,etSurname, etEmail, etUsername, etPassword, etPasswordReenter;
     RadioGroup rgGender;
@@ -38,7 +47,7 @@ public class RegisterActivity extends AppCompatActivity {
         });
 
     }
-    public void InputControlAddUser(View v){
+    public void InputControlAddUser(){
         tvMessage.setVisibility(View.GONE);
         tvMessage.setText("");
         String name = etName.getText().toString().trim();
@@ -47,12 +56,11 @@ public class RegisterActivity extends AppCompatActivity {
         String email = etEmail.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
         String passwordreenter = etPasswordReenter.getText().toString().trim();
-
         String gender ="";
 
         if (rgGender.getCheckedRadioButtonId()!=-1)
         {
-            if (rgGender.getCheckedRadioButtonId()==R.id.rbMale)
+            if (rgGender.getCheckedRadioButtonId()==R.id.rbFemale)
             {
                 gender="Male";
             }
@@ -97,22 +105,19 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
-            User user = new User();
-            user.setName(name);
-            user.setSurname(surname);
-            user.setUsername(username);
-            user.setEmail(email);
-            user.setPassword(password);
-            user.setGender(gender);
+        User user = new User("0",name,surname,email,username,password,gender);
+        firebase.AddUserToFirebase(this,user);
 
-            tvMessage.setText("User Created Succesfuly");
-            tvMessage.setTextColor(Color.GREEN);
-            tvMessage.setVisibility(View.VISIBLE);
-
-
-
+        tvMessage.setText("User Created Succesfuly");
+        tvMessage.setTextColor(Color.GREEN);
+        tvMessage.setVisibility(View.VISIBLE);
+        Intent intent = new Intent(RegisterActivity.this,LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
     void TakeComponents(){
+
+        firebase = new FirebaseClass(this.getApplicationContext());
         tvMessage =  (TextView) findViewById(R.id.messageTextForRegister);
         etName =  (EditText) findViewById(R.id.etName);
         etSurname = (EditText) findViewById(R.id.etSurname);
@@ -126,5 +131,112 @@ public class RegisterActivity extends AppCompatActivity {
         rbFemale = (RadioButton) findViewById(R.id.rbFemale);
 
         btnBack = (Button) findViewById(R.id.btnBackToLogin);
+    }
+
+    @Override
+    public void AddAudioToFirebaseResult(boolean result) {
+
+    }
+
+    @Override
+    public void AddMusicianToFirebaseResult(boolean result) {
+
+    }
+
+    @Override
+    public void AddUserToFirebaseResult(boolean result) {
+
+    }
+
+    @Override
+    public void GetCategoriesResult(Hashtable<String, String> list) {
+
+    }
+
+    @Override
+    public void GetAllMusicResult(List<Music> list) {
+
+    }
+
+    @Override
+    public void GetMusicWithGenreResult(List<Music> list) {
+
+    }
+
+    @Override
+    public void GetMusicWithMusicianIdResult(List<Music> list) {
+
+    }
+
+    @Override
+    public void GetAllMusicianResult(List<Musician> list) {
+
+    }
+
+    @Override
+    public void GetMusicianWithIdResult(List<Musician> list) {
+
+    }
+
+    @Override
+    public void GetUserInfoWithMailResult(tusba.rhytz.models.User user) {
+
+    }
+
+    @Override
+    public void CheckMailExistResult(boolean result) {
+        tvMessage =  (TextView) findViewById(R.id.messageTextForRegister);
+        if(result){
+            tvMessage.setText("Aynı mail kullanımda !");
+            tvMessage.setTextColor(Color.RED);
+            tvMessage.setVisibility(View.VISIBLE);
+        }
+        else{
+            String username = etUsername.getText().toString();
+            firebase.CheckUsernamelExist(this,username);
+        }
+    }
+
+    @Override
+    public void CheckUsernameExistResult(boolean result) {
+        tvMessage =  (TextView) findViewById(R.id.messageTextForRegister);
+        if(result){
+            tvMessage.setText("Aynı kullanıcı adı kullanımda !");
+            tvMessage.setTextColor(Color.RED);
+            tvMessage.setVisibility(View.VISIBLE);
+        }
+        else{
+           InputControlAddUser();
+        }
+    }
+
+    @Override
+    public void LoginToAppResult(User user) {
+
+    }
+
+    @Override
+    public void UpdateUser(boolean result) {
+
+    }
+
+    @Override
+    public void GetUserResult(User user) {
+
+    }
+
+
+    @Override
+    public void TESTINT(List<String> list) {
+
+    }
+
+    public void AddUserToFirebase(View view){
+        String mail = etEmail.getText().toString();
+        firebase.CheckMailExist(this,mail);
+    }
+
+    public void ShowToast(String message){
+        Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
     }
 }

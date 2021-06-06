@@ -94,5 +94,6 @@
             android:text="@string/btnLogout"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -42,7 +42,6 @@ public class SlideMenu extends AppCompatActivity {
         btnLibrary=findViewById(R.id.menuLibrary);
         btnProfile=findViewById(R.id.menuProfile);
         btnEqualizer=findViewById(R.id.menuEqualizer);
-        btnSettings=findViewById(R.id.menuSettings);
         btnLogout = findViewById(R.id.menuLogout);
 
         btnHome.setOnClickListener(new View.OnClickListener() {
@@ -69,13 +68,7 @@ public class SlideMenu extends AppCompatActivity {
             }
         });
 
-        btnSettings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent_to_settings = new Intent(SlideMenu.this,SettingsActivity.class);
-                startActivity(intent_to_settings);
-            }
-        });
+
 
         btnLogout.setOnClickListener(new View.OnClickListener(){
             @Override
