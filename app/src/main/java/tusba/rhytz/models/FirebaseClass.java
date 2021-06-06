@@ -34,7 +34,7 @@ public class FirebaseClass {
     StorageReference firebaseStorage;
     FirebaseFirestore firestore;
 
-    Context context;
+    public Context context;
     RealDoc realDoc = new RealDoc();
 
     String globalMusicianId = "vfbOjdVF5u7cYQJ4N2d9";

@@ -8,6 +8,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import com.google.android.material.tabs.TabLayout;
+
+import java.util.ArrayList;
+
 import tusba.rhytz.HomeActivity;
 import tusba.rhytz.R;
 
@@ -20,6 +24,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     @StringRes
     private static final int[] TAB_TITLES = new int[]{R.string.tabtitleHome,R.string.tabtitleSongs,R.string.tabtitlePlaylists,R.string.tabtitleGenres,R.string.tabtitleArtists,R.string.tabtitleAlbums};
     private final Context mContext;
+    public ArrayList<Fragment> fragments = new ArrayList<>();
 
     public SectionsPagerAdapter(Context context, FragmentManager fm) {
         super(fm);
@@ -32,8 +37,10 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         if(position==0) fragment = HomeFragment.newInstance((position));
         else if(position == 3) fragment = GenresFragment.newInstance(((HomeActivity)mContext).music);
         else fragment = SongsFragment.newInstance(((HomeActivity)mContext).music,position);
+        fragments.add(fragment);
         return fragment;
     }
+
 
     @Nullable
     @Override
@@ -46,4 +53,6 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         // Show 2 total pages.
         return TAB_TITLES.length;
     }
+
+
 }

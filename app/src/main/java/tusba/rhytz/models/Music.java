@@ -6,19 +6,20 @@ import java.io.Serializable;
 
 public class Music implements Serializable {
 
-    public String id;
-    public String albumId;
-    public String categoryId;
-    public String musicianId;
-    private String uri;
-    private String name;
-    private int duration;
-    private int size;
-    private String album;
-    private String artist;
-    private String title;
-    private String genre;
-    private String albumArt;
+    public String id = "undefined";
+    public String albumId = "undefined";
+    public String categoryId = "undefined";
+    public String musicianId = "undefined";
+    private String uri = "undefined";
+    private String name = "undefined";
+    private int duration = 0;
+    private int size = 0;
+    private String album = "undefined";
+    private String artist = "undefined";
+    private String title = "undefined";
+    private String genre = "undefined";
+    private String albumArt = "undefined";
+    private boolean isFavorite = false;
 
 
     public Music(){}
@@ -48,18 +49,8 @@ public class Music implements Serializable {
         this.artist = artist;
         this.title = title;
         this.genre = genre;
-        if(this.title == null){
-            this.title = "undefined";
-        }
-        if(this.album == null){
-            this.album = "undefined";
-        }
-        if(this.artist == null){
-            this.artist = "undefined";
-        }
-        if(this.genre == null){
-            this.genre = "undefined";
-        }
+        GenerateLocalID();
+        CheckNulls();
     }
 
     public String getId() {        return id;    }
@@ -82,14 +73,6 @@ public class Music implements Serializable {
 
     public void setSource(String source) {   this.uri = source;  }
 
-    public Uri getUri() {
-        return Uri.parse(uri);
-    }
-
-    public void setUri(Uri uri) {
-        this.uri = uri.toString();
-    }
-
     public String getName() {
         return name;
     }
@@ -102,38 +85,12 @@ public class Music implements Serializable {
         return duration;
     }
 
-    public String getDurationFormatted(){
-        String time = "";
-        int second = duration/1000;
-        int min = second/60;
-        int hour = min/60;
-        second = second%60;
-        min = min%60;
+    public boolean isFavorite() {
+        return isFavorite;
+    }
 
-
-        if(hour > 0){
-            if(hour < 10){
-                time += "0"+hour;
-            }
-            else{
-                time+=hour;
-            }
-            time += ":";
-        }
-        if(min < 10){
-            time += "0"+min;
-        }
-        else{
-            time += min;
-        }
-        time += ":";
-        if(second < 10){
-            time += "0"+second;
-        }
-        else{
-            time += second;
-        }
-        return  time;
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
     }
 
     public void setDuration(int duration) {
@@ -188,7 +145,78 @@ public class Music implements Serializable {
         this.albumArt = albumArt;
     }
 
+    /*---------------------------------------------------------------*/
+
+    private void GenerateLocalID(){
+        long longID = 0;
+        for(int i = 0; i < this.name.length(); i++){
+            char ch = this.name.charAt(i);
+            longID += (int)ch;
+        }
+        this.id = ""+Long.toString(longID+this.size,36);
+    }
+
+    public String getDurationFormatted(){
+        String time = "";
+        int second = duration/1000;
+        int min = second/60;
+        int hour = min/60;
+        second = second%60;
+        min = min%60;
 
 
+        if(hour > 0){
+            if(hour < 10){
+                time += "0"+hour;
+            }
+            else{
+                time+=hour;
+            }
+            time += ":";
+        }
+        if(min < 10){
+            time += "0"+min;
+        }
+        else{
+            time += min;
+        }
+        time += ":";
+        if(second < 10){
+            time += "0"+second;
+        }
+        else{
+            time += second;
+        }
+        return  time;
+    }
+
+    public void CheckNulls(){
+        if(this.title == null){
+            this.title = "undefined";
+        }
+        if(this.album == null){
+            this.album = "undefined";
+        }
+        if(this.artist == null){
+            this.artist = "undefined";
+        }
+        if(this.genre == null){
+            this.genre = "undefined";
+        }
+        if(this.albumArt == null){
+            this.albumArt = "undefined";
+        }
+        if(this.name == null){
+            this.name = "undefined";
+        }
+    }
+
+    public Uri GetUri() {
+        return Uri.parse(uri);
+    }
+
+    public void SetUri(Uri uri) {
+        this.uri = uri.toString();
+    }
 
 }

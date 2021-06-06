@@ -20,7 +20,7 @@ import com.google.android.material.navigation.NavigationView;
 
 public class SlideMenu extends AppCompatActivity {
     DrawerLayout drawer;
-    Toolbar toolbar;
+
     NavigationView naView;
     ActionBarDrawerToggle toggle;
 
@@ -31,12 +31,9 @@ public class SlideMenu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_slide_menu);
         drawer = findViewById(R.id.drawerMenu);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
         naView = findViewById(R.id.navView);
-        setSupportActionBar(toolbar);
-        toggle = new ActionBarDrawerToggle(this,drawer,toolbar,0,0);
         drawer.addDrawerListener(toggle);
-        toggle.syncState();
+
 
         btnHome=findViewById(R.id.menuHome);
         btnLibrary=findViewById(R.id.menuLibrary);
@@ -48,32 +45,33 @@ public class SlideMenu extends AppCompatActivity {
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent_backto_home = new Intent(SlideMenu.this,MainActivity.class);
-                startActivity(intent_backto_home);
+                Intent intent = new Intent(SlideMenu.this,HomeActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
             }
         });
 
         btnLibrary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent_backto_library = new Intent(SlideMenu.this,HomeActivity.class);
-                startActivity(intent_backto_library);
+                Intent intent = new Intent(SlideMenu.this,HomeActivity.class);
+                startActivity(intent);
             }
         });
 
         btnProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent_to_profile = new Intent(SlideMenu.this,ProfilePage.class);
-                startActivity(intent_to_profile);
+                Intent intent = new Intent(SlideMenu.this,ProfilePage.class);
+                startActivity(intent);
             }
         });
 
         btnSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent_to_settings = new Intent(SlideMenu.this,SettingsActivity.class);
-                startActivity(intent_to_settings);
+                Intent intent = new Intent(SlideMenu.this,SettingsActivity.class);
+                startActivity(intent);
             }
         });
 

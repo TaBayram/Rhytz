@@ -23,10 +23,11 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/title"
+                <Button
+                    android:id="@+id/buttonHomeTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:background="@color/cardview_shadow_end_color"
                     android:gravity="center"
                     android:minHeight="?actionBarSize"
                     android:paddingLeft="10dp"
@@ -36,6 +37,7 @@
                     android:textSize="20sp" />
 
                 <SearchView
+                    android:id="@+id/searchViewHome"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </LinearLayout>

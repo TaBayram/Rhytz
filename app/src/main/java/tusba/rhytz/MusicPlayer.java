@@ -4,12 +4,11 @@ package tusba.rhytz;
 
 import androidx.annotation.Nullable;
 
+import android.content.Context;
 import android.content.Intent;
-import android.media.MediaPlayer;
-import android.media.TimedText;
-import android.media.audiofx.AudioEffect;
 import android.os.Bundle;
 
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -17,26 +16,29 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 import tusba.rhytz.helpers.MediaPlayerHelper;
+import tusba.rhytz.helpers.PlayerListenerHelper;
 import tusba.rhytz.models.Music;
 
 
-public class MusicPlayer extends SlideMenu {
+public class MusicPlayer extends SlideMenu implements PlayerListenerHelper {
 
     TextView textViewSongName ;
     TextView textViewSingerName ;
     TextView textViewCurrentPlace ;
     TextView textViewDuration ;
     Button buttonPausePlay;
-    MediaPlayerHelper mediaPlayer;
+    Button buttonPlayList;
+    Button buttonNext;
+    Button buttonPrevious;
+    Button buttonRepeat;
+    MediaPlayerHelper mediaPlayerHelper;
     SeekBar seekBarMusic;
-    boolean isMediaPlayerReady = false;
-    Music music;
+    public Music music;
     Button equBtn;
-    int sessionId;
+    Context context;
+
+
 
 
 
@@ -49,124 +51,83 @@ public class MusicPlayer extends SlideMenu {
         Bundle bundle = getIntent().getExtras();
         music =(Music)bundle.getSerializable("song");
 
+        this.context = this;
+
+
+
 
         textViewSongName = findViewById(R.id.textViewSongName);
         textViewSingerName = findViewById(R.id.textViewSingerName);
         textViewCurrentPlace = findViewById(R.id.textViewCurrentPlace);
         textViewDuration = findViewById(R.id.textViewDuration);
         buttonPausePlay = findViewById(R.id.buttonPausePlay);
+        buttonPlayList = findViewById(R.id.buttonPlayList);
+        buttonNext = findViewById(R.id.buttonNext);
+        buttonPrevious = findViewById(R.id.buttonPrevious);
+        buttonRepeat = findViewById(R.id.buttonRepeat);
         seekBarMusic = findViewById(R.id.seekBarMusic);
 
-        mediaPlayer = MediaPlayerHelper.getInstance();
+        Button buttonDrawer = findViewById(R.id.buttonMPRhytz);
+
+        buttonDrawer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawer.openDrawer(Gravity.LEFT);
+
+            }
+        });
+
+
+        mediaPlayerHelper = MediaPlayerHelper.getInstance();
         if(music == null){
-            music = mediaPlayer.getMusic();
-            seekBarMusic.setProgress(mediaPlayer.getMediaPlayer().getCurrentPosition()*100/mediaPlayer.getMediaPlayer().getDuration());
+            music = mediaPlayerHelper.getMusic();
+            seekBarMusic.setProgress(mediaPlayerHelper.getMediaPlayer().getCurrentPosition()*100/ mediaPlayerHelper.getMediaPlayer().getDuration());
+            mediaPlayerHelper.setContextMusicPlayer(this);
         }
         else{
-            mediaPlayer.setMediaPlayer(this,music);
+            mediaPlayerHelper.setPlaying(true);
+            mediaPlayerHelper.setMediaPlayer(this,music);
+
         }
+
 
         textViewSongName.setText(music.getTitle());
         textViewSingerName.setText(music.getArtist());
 
 
 
-        boolean isPlaying = false;
-        if(mediaPlayer.getMediaPlayer() != null)
-            isPlaying = mediaPlayer.getMediaPlayer().isPlaying();
-        if(isPlaying) {
-            //mediaPlayer.getMediaPlayer().start();
+        if(mediaPlayerHelper.getMediaPlayer() != null && mediaPlayerHelper.isPlaying()){
             buttonPausePlay.setBackground(getResources().getDrawable(android.R.drawable.ic_media_pause));
         }
 
 
+
         //mediaPlayer = MediaPlayer.create(this, music.getUri());
-        equBtn = (Button) findViewById(R.id.buttonEqualizer);
+        equBtn = (Button) findViewById(R.id.buttonSleepTimer);
         AttachListeners();
 
     }
 
     private void AttachListeners(){
-        AttachMediaPlayerListeners();
-    }
 
-    private void AttachMediaPlayerListeners(){
-        mediaPlayer.getMediaPlayer().setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+        buttonPlayList.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onPrepared(MediaPlayer mp) {
-                textViewDuration.setText(mediaPlayer.GetTimeWithMiliSecond(mediaPlayer.getMediaPlayer().getDuration()));
-                mediaPlayer.setReady(true);
-                Timer timer = new Timer();
-                timer.schedule(new TimerTask() {
-                    @Override
-                    public void run() {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                textViewCurrentPlace.setText(mediaPlayer.GetTimeWithMiliSecond(mp.getCurrentPosition()));
-                                seekBarMusic.setProgress(mp.getCurrentPosition()*100/mp.getDuration());
-                            }
-                        });
-
-                    }
-                },50,500);
+            public void onClick(View v) {
+                Intent intent = new Intent(context, GenericSmallLibraryActivity.class);
+                intent.putExtra("music", MediaPlayerHelper.getInstance().getPlayList());
+                intent.putExtra("type", 6);
+                context.startActivity(intent);
             }
         });
 
-        if(mediaPlayer.isReady()){
-            textViewDuration.setText(mediaPlayer.GetTimeWithMiliSecond(mediaPlayer.getMediaPlayer().getDuration()));
-            mediaPlayer.setReady(true);
-            Timer timer = new Timer();
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            textViewCurrentPlace.setText(mediaPlayer.GetTimeWithMiliSecond(mediaPlayer.getMediaPlayer().getCurrentPosition()));
-                            seekBarMusic.setProgress(mediaPlayer.getMediaPlayer().getCurrentPosition()*100/mediaPlayer.getMediaPlayer().getDuration());
-                        }
-                    });
-
-                }
-            },50,500);
-
-
-
-        }
-
-
-        mediaPlayer.getMediaPlayer().setOnBufferingUpdateListener(new MediaPlayer.OnBufferingUpdateListener() {
-
-            @Override
-            public void onBufferingUpdate(MediaPlayer mp, int percent) {
-                seekBarMusic.setProgress(percent);
-                textViewCurrentPlace.setText(""+mp.getDuration()*percent/100);
-            }
-        });
-
-        mediaPlayer.getMediaPlayer().setOnTimedTextListener(new MediaPlayer.OnTimedTextListener() {
-            @Override
-            public void onTimedText(MediaPlayer mp, TimedText text) {
-                System.out.println("hmm");
-            }
-        });
-
-        mediaPlayer.getMediaPlayer().setOnSeekCompleteListener(new MediaPlayer.OnSeekCompleteListener() {
-            @Override
-            public void onSeekComplete(MediaPlayer mp) {
-                textViewCurrentPlace.setText(mediaPlayer.GetTimeWithMiliSecond(mp.getCurrentPosition()));
-            }
-        });
         seekBarMusic.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if(fromUser){
-                    int seekedMili = progress*mediaPlayer.getMediaPlayer().getDuration()/100;
-                    mediaPlayer.getMediaPlayer().seekTo(seekedMili);
+                    int seekedMili = progress* mediaPlayerHelper.getMediaPlayer().getDuration()/100;
+                    mediaPlayerHelper.getMediaPlayer().seekTo(seekedMili);
                 }
             }
-
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
 
@@ -179,34 +140,61 @@ public class MusicPlayer extends SlideMenu {
         });
 
 
-
         buttonPausePlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!mediaPlayer.isReady()){
-                    Toast.makeText(getParent(), "Not Prepared", Toast.LENGTH_SHORT).show();
+                if(!mediaPlayerHelper.isReady()){
+                    Toast.makeText(context, "Not Prepared", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(mediaPlayer.getMediaPlayer().isPlaying()){
-                    mediaPlayer.getMediaPlayer().pause();
-
-                    buttonPausePlay.setBackground(getResources().getDrawable(android.R.drawable.ic_media_play));
+                if(mediaPlayerHelper.isPlaying()){
+                    mediaPlayerHelper.setPlaying(false);
                 }
                 else{
-                    mediaPlayer.getMediaPlayer().start();
-
-                    buttonPausePlay.setBackground(getResources().getDrawable(android.R.drawable.ic_media_pause));
+                    mediaPlayerHelper.setPlaying(true);
                 }
+            }
+        });
+
+        buttonRepeat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mediaPlayerHelper.isOnRepeat()){
+                    mediaPlayerHelper.setOnRepeat(false);
+                    buttonRepeat.setBackground(getResources().getDrawable(android.R.drawable.stat_notify_sync));
+                }
+                else{
+                    mediaPlayerHelper.setOnRepeat(true);
+                    buttonRepeat.setBackground(getResources().getDrawable(android.R.drawable.ic_popup_sync));
+                }
+            }
+        });
+
+        buttonNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mediaPlayerHelper.NextSong(context);
+            }
+        });
+
+        buttonPrevious.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mediaPlayerHelper.PreviousSong(context);
             }
         });
 
         equBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sessionId = mediaPlayer.getMediaPlayer().getAudioSessionId();
+               /* sessionId = mediaPlayerHelper.getMediaPlayer().getAudioSessionId();
                 Intent intent = new Intent(AudioEffect.ACTION_DISPLAY_AUDIO_EFFECT_CONTROL_PANEL);
                 intent.putExtra(AudioEffect.EXTRA_AUDIO_SESSION,sessionId);
-                startActivityForResult(intent,123);
+
+                startActivityForResult(intent,123);*/
+
+                Intent intent = new Intent(context, SleepActivity.class);
+                context.startActivity(intent);
             }
         });
 
@@ -220,39 +208,38 @@ public class MusicPlayer extends SlideMenu {
         }
     }
 
-    private String GetTimeWithMiliSecond(int milisecond){
-        String time = "";
-        int second = milisecond/1000;
-        int min = second/60;
-        int hour = min/60;
-        second = second%60;
-        min = min%60;
 
-
-        if(hour > 0){
-            if(hour < 10){
-                time += "0"+hour;
-            }
-            else{
-                time+=hour;
-            }
-            time += ":";
-        }
-        if(min < 10){
-            time += "0"+min;
+    @Override
+    public void SetState(boolean isPlaying) {
+        if(isPlaying){
+            buttonPausePlay.setBackground(getResources().getDrawable(android.R.drawable.ic_media_pause));
         }
         else{
-            time += min;
+            buttonPausePlay.setBackground(getResources().getDrawable(android.R.drawable.ic_media_play));
         }
-        time += ":";
-        if(second < 10){
-            time += "0"+second;
-        }
-        else{
-            time += second;
-        }
+    }
 
-        return  time;
+    @Override
+    public void SetDuration(String duration) {
+        runOnUiThread(() -> textViewDuration.setText(duration));
+    }
 
+    @Override
+    public void SetCurrent(String duration) {
+        runOnUiThread(() -> textViewCurrentPlace.setText(duration));
+    }
+
+    @Override
+    public void SetInformation(Music music) {
+        runOnUiThread(() -> {
+            textViewSongName.setText(music.getTitle());
+            textViewSingerName.setText(music.getArtist());
+        });
+
+    }
+
+    @Override
+    public void SetSeekBar(int percentage) {
+        runOnUiThread(() -> seekBarMusic.setProgress(percentage));
     }
 }

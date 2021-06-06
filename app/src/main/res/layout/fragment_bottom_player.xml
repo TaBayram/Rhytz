@@ -48,24 +48,50 @@
             <TextView
                 android:id="@+id/textViewBottomTitle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Song" />
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
 
-            <TextView
-                android:id="@+id/textViewBottomDuration"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="right|center_vertical"
-                android:text="Duration" />
+                android:layout_weight="0"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textViewBottomCurrent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/textViewBottomDuration"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
         </LinearLayout>
+
+        <Button
+            android:id="@+id/buttonBottomPrevious"
+            android:layout_width="48dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:background="@android:drawable/ic_media_previous" />
 
         <Button
             android:id="@+id/buttonBottomPlayPause"
             android:layout_width="48dp"
             android:layout_height="match_parent"
             android:layout_weight="0" />
+
+        <Button
+            android:id="@+id/buttonBottomNext"
+            android:layout_width="48dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:background="@android:drawable/ic_media_next" />
+
     </LinearLayout>
 
 </LinearLayout>

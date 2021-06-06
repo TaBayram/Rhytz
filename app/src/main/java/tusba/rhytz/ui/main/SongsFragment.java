@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 import tusba.rhytz.R;
 import tusba.rhytz.helpers.GenericAdapter;
+import tusba.rhytz.helpers.MediaPlayerHelper;
 import tusba.rhytz.models.Music;
 
 
@@ -23,10 +24,15 @@ public class SongsFragment extends Fragment {
     private static final String ARG_PARAM_MUSIC = "music";
     private static final String ARG_PARAM_TYPE = "type";
     RecyclerView recyclerViewMusic;
+    GenericAdapter genericAdapter;
 
     // TODO: Rename and change types of parameters
     private ArrayList<Music> music;
     private  int type;
+
+    public int getType() {
+        return type;
+    }
 
     public SongsFragment() {
         // Required empty public constructor
@@ -48,6 +54,7 @@ public class SongsFragment extends Fragment {
             music = (ArrayList<Music>) getArguments().getSerializable(ARG_PARAM_MUSIC);
             type = getArguments().getInt(ARG_PARAM_TYPE);
         }
+        music = MediaPlayerHelper.getInstance().GetAllMusic();
     }
 
     @Override
@@ -59,9 +66,19 @@ public class SongsFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         recyclerViewMusic = getView().findViewById(R.id.recyclerViewFragmentSongs);
-        GenericAdapter musicAdapter = new GenericAdapter(getContext(),music,type);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
         recyclerViewMusic.setLayoutManager(layoutManager);
-        recyclerViewMusic.setAdapter(musicAdapter);
+        Refresh();
+    }
+
+    public void Refresh(){
+        if(recyclerViewMusic == null) return;
+        music = MediaPlayerHelper.getInstance().GetAllMusic();
+        genericAdapter = new GenericAdapter(getContext(),music,type);
+        recyclerViewMusic.setAdapter(genericAdapter);
+    }
+
+    public void Filter(String text){
+        ((GenericAdapter)recyclerViewMusic.getAdapter()).Filter(text);
     }
 }

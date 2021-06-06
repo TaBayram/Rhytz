@@ -1,8 +1,6 @@
 package tusba.rhytz;
 
 import android.content.Intent;
-import android.media.MediaPlayer;
-import android.media.TimedText;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -16,17 +14,16 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 import tusba.rhytz.helpers.MediaPlayerHelper;
+import tusba.rhytz.helpers.PlayerListenerHelper;
+import tusba.rhytz.models.Music;
 
 
-public class BottomPlayerFragment extends Fragment {
+public class BottomPlayerFragment extends Fragment implements PlayerListenerHelper {
 
-    Button buttonPausePlay;
+    Button buttonPausePlay,buttonNext,buttonPrevious;
     SeekBar seekBarMusic;
-    TextView textViewTitle,textViewDuration;
+    TextView textViewTitle,textViewDuration,textViewCurrent;
     MediaPlayerHelper mediaPlayerHelper;
     Fragment fragment;
 
@@ -59,113 +56,45 @@ public class BottomPlayerFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         buttonPausePlay = getView().findViewById(R.id.buttonBottomPlayPause);
+        buttonNext = getView().findViewById(R.id.buttonBottomNext);
+        buttonPrevious = getView().findViewById(R.id.buttonBottomPrevious);
         textViewDuration = getView().findViewById(R.id.textViewBottomDuration);
+        textViewCurrent = getView().findViewById(R.id.textViewBottomCurrent);
         textViewTitle = getView().findViewById(R.id.textViewBottomTitle);
         seekBarMusic = getView().findViewById(R.id.seekBarBottomMusic);
         mediaPlayerHelper = MediaPlayerHelper.getInstance();
         View layout = getView().findViewById(R.id.linearLayoutBottomMain);
         fragment = this;
 
-        if(mediaPlayerHelper.getMediaPlayer().isPlaying()){
+        if(mediaPlayerHelper.isPlaying()){
             buttonPausePlay.setBackground(getResources().getDrawable(android.R.drawable.ic_media_pause));
         }
         else{
             buttonPausePlay.setBackground(getResources().getDrawable(android.R.drawable.ic_media_play));
         }
 
-        buttonPausePlay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(!mediaPlayerHelper.isReady()){
-                    Toast.makeText(view.getContext(), "Not Prepared", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if(mediaPlayerHelper.getMediaPlayer().isPlaying()){
-                    mediaPlayerHelper.getMediaPlayer().pause();
-
-                    buttonPausePlay.setBackground(getResources().getDrawable(android.R.drawable.ic_media_play));
-                }
-                else{
-                    mediaPlayerHelper.getMediaPlayer().start();
-
-                    buttonPausePlay.setBackground(getResources().getDrawable(android.R.drawable.ic_media_pause));
-                }
-            }
-        });
-        AttachMediaPlayerListeners();
-
-        layout.setOnClickListener(new View.OnClickListener() {
+         layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(mediaPlayerHelper.getMusic() == null) return;
                 Intent intent = new Intent(view.getContext(), MusicPlayer.class);
                 intent.putExtra("song", (Bundle) null);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 view.getContext().startActivity(intent);
             }
         });
 
+        mediaPlayerHelper.setFragmentBottomPlayer(this);
 
+        AttachListeners();
     }
 
 
-    private void AttachMediaPlayerListeners(){
+    private void AttachListeners(){
         if(mediaPlayerHelper.getMediaPlayer() == null) {
             return;
         }
 
-
-
-
-         Timer timer = new Timer();
-         timer.schedule(new TimerTask() {
-             @Override
-             public void run() {
-                 if(getActivity() == null) {
-                     timer.cancel();
-                     return;
-                 }
-                 getActivity().runOnUiThread(new Runnable() {
-                     @Override
-                     public void run() {
-                         if(!mediaPlayerHelper.isReady()) return;
-                         if(mediaPlayerHelper.getMediaPlayer().isPlaying()){
-                             buttonPausePlay.setBackground(getResources().getDrawable(android.R.drawable.ic_media_pause));
-                         }
-                         else{
-                             buttonPausePlay.setBackground(getResources().getDrawable(android.R.drawable.ic_media_play));
-                         }
-                         textViewTitle.setText(mediaPlayerHelper.getMusic().getTitle());
-                         textViewDuration.setText(mediaPlayerHelper.GetTimeWithMiliSecond(mediaPlayerHelper.getMediaPlayer().getCurrentPosition())+"/"+mediaPlayerHelper.GetTimeWithMiliSecond(mediaPlayerHelper.getMediaPlayer().getDuration()));
-                         seekBarMusic.setProgress(mediaPlayerHelper.getMediaPlayer().getCurrentPosition()*100/mediaPlayerHelper.getMediaPlayer().getDuration());
-                     }
-                 });
-
-             }
-         },50,500);
-;
-
-        mediaPlayerHelper.getMediaPlayer().setOnBufferingUpdateListener(new MediaPlayer.OnBufferingUpdateListener() {
-
-            @Override
-            public void onBufferingUpdate(MediaPlayer mp, int percent) {
-                seekBarMusic.setProgress(percent);
-               // textViewCurrentPlace.setText(""+mp.getDuration()*percent/100);
-            }
-        });
-
-        mediaPlayerHelper.getMediaPlayer().setOnTimedTextListener(new MediaPlayer.OnTimedTextListener() {
-            @Override
-            public void onTimedText(MediaPlayer mp, TimedText text) {
-                System.out.println("hmm");
-            }
-        });
-
-        mediaPlayerHelper.getMediaPlayer().setOnSeekCompleteListener(new MediaPlayer.OnSeekCompleteListener() {
-            @Override
-            public void onSeekComplete(MediaPlayer mp) {
-                textViewDuration.setText(mediaPlayerHelper.GetTimeWithMiliSecond(mediaPlayerHelper.getMediaPlayer().getCurrentPosition())+"/"+mediaPlayerHelper.GetTimeWithMiliSecond(mediaPlayerHelper.getMediaPlayer().getDuration()));
-            }
-        });
         seekBarMusic.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -186,5 +115,87 @@ public class BottomPlayerFragment extends Fragment {
             }
         });
 
+        buttonPausePlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!mediaPlayerHelper.isReady()){
+                    Toast.makeText(getContext(), "Not Prepared", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(mediaPlayerHelper.isPlaying()){
+                    mediaPlayerHelper.setPlaying(false);
+                }
+                else{
+                    mediaPlayerHelper.setPlaying(true);
+                }
+            }
+        });
+
+        buttonNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mediaPlayerHelper.NextSong(getContext());
+            }
+        });
+
+        buttonPrevious.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mediaPlayerHelper.PreviousSong(getContext());
+            }
+        });
+
+
+    }
+
+
+    @Override
+    public void SetState(boolean isPlaying) {
+        if(isPlaying){
+            buttonPausePlay.setBackground(getResources().getDrawable(android.R.drawable.ic_media_pause));
+        }
+        else{
+            buttonPausePlay.setBackground(getResources().getDrawable(android.R.drawable.ic_media_play));
+        }
+    }
+
+    @Override
+    public void SetDuration(String duration) {
+        if(this.getContext() == null || getActivity() == null){
+            mediaPlayerHelper.getFragmentBottomPlayer().remove(this);
+            return;
+        }
+        getActivity().runOnUiThread(() -> textViewDuration.setText(duration));
+    }
+
+    @Override
+    public void SetCurrent(String duration) {
+        if(this.getContext() == null || getActivity() == null){
+            mediaPlayerHelper.getFragmentBottomPlayer().remove(this);
+            return;
+        }
+        getActivity().runOnUiThread(() -> textViewCurrent.setText(duration));
+    }
+
+    @Override
+    public void SetInformation(Music music) {
+        if(this.getContext() == null || getActivity() == null){
+            mediaPlayerHelper.getFragmentBottomPlayer().remove(this);
+            return;
+        }
+        getActivity().runOnUiThread(() -> {
+            textViewTitle.setText(music.getTitle());
+            //textViewSingerName.setText(music.getArtist());
+        });
+
+    }
+
+    @Override
+    public void SetSeekBar(int percentage) {
+        if(this.getContext() == null || getActivity() == null){
+            mediaPlayerHelper.getFragmentBottomPlayer().remove(this);
+            return;
+        }
+        getActivity().runOnUiThread(() -> seekBarMusic.setProgress(percentage));
     }
 }

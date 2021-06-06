@@ -1,12 +1,13 @@
 package tusba.rhytz;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -14,9 +15,10 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import tusba.rhytz.helpers.GenericAdapter;
+import tusba.rhytz.helpers.MediaPlayerHelper;
 import tusba.rhytz.models.Music;
 
-public class GenericSmallLibraryActivity extends AppCompatActivity {
+public class GenericSmallLibraryActivity extends SlideMenu {
 
     RecyclerView recyclerViewMusic;
     ArrayList<Music> music;
@@ -27,17 +29,22 @@ public class GenericSmallLibraryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_generic_smal_library);
+        LayoutInflater inflater= LayoutInflater.from(this);
+        View v = inflater.inflate(R.layout.activity_generic_smal_library,null,false);
+        drawer.addView(v,0);
+
         context = this;
-        textViewTitle = findViewById(R.id.textViewGSLTitle);
-        buttonBack = findViewById(R.id.buttonGSLBack);
+        textViewTitle = findViewById(R.id.textViewSTTitle);
+        buttonBack = findViewById(R.id.buttonSTRhytz);
 
         Bundle bundle = getIntent().getExtras();
         music =(ArrayList<Music>)bundle.getSerializable("music");
         int type = bundle.getInt("type");
 
-
-        if(type == 3){
+        if(type == 2){
+            textViewTitle.setText("Playlist");
+        }
+        else if(type == 3){
             textViewTitle.setText(music.get(0).getGenre());
         }
         else if(type == 4){
@@ -46,11 +53,15 @@ public class GenericSmallLibraryActivity extends AppCompatActivity {
         else if (type == 5){
             textViewTitle.setText(music.get(0).getAlbum());
         }
+        else if (type == 6){
+            textViewTitle.setText("Current List");
+            MediaPlayerHelper.getInstance().setContextPlaylist(this);
+        }
 
         buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((Activity)context).finish();
+                drawer.openDrawer(Gravity.LEFT);
             }
         });
 

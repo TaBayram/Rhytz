@@ -19,13 +19,15 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/buttonGSLBack"
-                android:layout_width="65dp"
+                android:id="@+id/buttonSTRhytz"
+                android:layout_width="wrap_content"
                 android:layout_height="34dp"
-                android:layout_weight="0" />
+                android:layout_weight="0"
+                android:background="@android:color/transparent"
+                android:text="@string/app_name" />
 
             <TextView
-                android:id="@+id/textViewGSLTitle"
+                android:id="@+id/textViewSTTitle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="0"

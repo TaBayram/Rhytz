@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/ItemGIFirst"
+        android:title="Favorite" />
+    <item
+        android:id="@+id/ItemGISecond"
+        android:title="Paylist" />
+    <item android:id="@+id/ItemGIThird" />
+</menu>
