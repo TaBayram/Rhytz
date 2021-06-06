@@ -1,6 +1,5 @@
 package tusba.rhytz.models;
 
-
 public class Musician {
     public String id,name;
 

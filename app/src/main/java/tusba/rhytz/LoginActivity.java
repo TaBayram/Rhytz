@@ -14,35 +14,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Hashtable;
-import java.util.List;
-
-import tusba.rhytz.models.FirebaseClass;
-import tusba.rhytz.models.FirebaseInterface;
-import tusba.rhytz.models.Music;
-import tusba.rhytz.models.Musician;
-import tusba.rhytz.models.MyUser;
-import tusba.rhytz.models.User;
-
-public class LoginActivity extends AppCompatActivity implements FirebaseInterface {
-
-    FirebaseClass firebase;
+public class LoginActivity extends AppCompatActivity {
     Button btRegister,btnLogin;
-    EditText etEmail, etPassword;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
-        ShowToast("djlsgdsg");
-        firebase = new FirebaseClass(this.getApplicationContext());
 
         CheckBox remember = findViewById(R.id.cbRemember);
         btRegister =  findViewById(R.id.registerToLogin);
         btnLogin = findViewById(R.id.btnLogin);
-        etEmail = findViewById(R.id.etEmail);
-        etPassword = findViewById(R.id.etPassword);
 
         btRegister.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -87,121 +68,35 @@ public class LoginActivity extends AppCompatActivity implements FirebaseInterfac
 
 
     }
-
-
-
-    @Override
-    public void AddAudioToFirebaseResult(boolean result) {
-
-    }
-
-    @Override
-    public void AddMusicianToFirebaseResult(boolean result) {
-
-    }
-
-    @Override
-    public void AddUserToFirebaseResult(boolean result) {
-
-    }
-
-    @Override
-    public void GetCategoriesResult(Hashtable<String, String> list) {
-
-    }
-
-    @Override
-    public void GetAllMusicResult(List<Music> list) {
-
-    }
-
-    @Override
-    public void GetMusicWithGenreResult(List<Music> list) {
-
-    }
-
-    @Override
-    public void GetMusicWithMusicianIdResult(List<Music> list) {
-
-    }
-
-    @Override
-    public void GetAllMusicianResult(List<Musician> list) {
-
-    }
-
-    @Override
-    public void GetMusicianWithIdResult(List<Musician> list) {
-
-    }
-
-    @Override
-    public void GetUserInfoWithMailResult(User user) {
-
-    }
-
-    @Override
-    public void CheckMailExistResult(boolean result) {
-
-    }
-
-    @Override
-    public void CheckUsernameExistResult(boolean result) {
-
-    }
-
-    @Override
-    public void LoginToAppResult(User user) {
+    public void UserLogin(View v)
+    {
         EditText etEmail = (EditText) findViewById(R.id.etEmail);
         EditText etPassword = (EditText) findViewById(R.id.etPassword);
         TextView tvMessage =  (TextView) findViewById(R.id.messageText);
-        String email = etEmail.getText().toString().trim();
+        String username = etEmail.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
-        if(user != null){
-            MyUser.myUser = user;
-            Intent intent_to_login = new Intent(LoginActivity.this,MainActivity.class);
-            startActivity(intent_to_login);
+
+        if (username.equals("")){
+            tvMessage.setText("Enter your User Name.");
+            tvMessage.setVisibility(View.VISIBLE);
+            tvMessage.setTextColor(Color.RED);
+            etEmail.requestFocus();
+            return;
         }
-        else{
-            if (email.equals("")){
-                tvMessage.setText("Enter Your E-mail");
-                tvMessage.setVisibility(View.VISIBLE);
-                tvMessage.setTextColor(Color.RED);
-                etEmail.requestFocus();
-                return;
-            }
-            if (password.equals("")){
-                tvMessage.setText("Enter Your Password");
-                tvMessage.setVisibility(View.VISIBLE);
-                tvMessage.setTextColor(Color.RED);
-                etPassword.requestFocus();
-                return;
-            }
+        if (password.equals("")){
+            tvMessage.setText("Enter your Password.");
+            tvMessage.setVisibility(View.VISIBLE);
+            tvMessage.setTextColor(Color.RED);
+            etPassword.requestFocus();
+            return;
         }
         Intent intent_to_login = new Intent(LoginActivity.this,HomeActivity.class);
         startActivity(intent_to_login);
 
-    @Override
-    public void UpdateUser(boolean result) {
+
+
+
 
     }
 
-    @Override
-    public void GetUserResult(User user) {
-
-    }
-
-    @Override
-    public void TESTINT(List<String> list) {
-
-    }
-
-    public void LoginToApp(View view){
-        String mail = etEmail.getText().toString();
-        String password = etPassword.getText().toString();
-        firebase.LoginToApp(this,mail,password);
-    }
-    public void ShowToast(String message){
-        Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
-    }
 }

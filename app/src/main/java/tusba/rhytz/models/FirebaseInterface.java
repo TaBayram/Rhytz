@@ -17,9 +17,6 @@ public interface FirebaseInterface {
     public void GetUserInfoWithMailResult(User user);
     public void CheckMailExistResult(boolean result);
     public void CheckUsernameExistResult(boolean result);
-    public void LoginToAppResult(User user);
-    public void UpdateUser(boolean result);
-    public void GetUserResult(User user);
-
+    public void LoginToAppResult(boolean result);
+    public void TESTINT(List<String> list);
 }
-

@@ -42,7 +42,7 @@ import tusba.rhytz.models.Music;
 import tusba.rhytz.models.Musician;
 import tusba.rhytz.models.User;
 
-public class MainActivity extends SlideMenu  {
+public class MainActivity extends SlideMenu implements FirebaseInterface {
 
     Uri audioUri;
     FirebaseClass firebase;
@@ -308,15 +308,6 @@ public class MainActivity extends SlideMenu  {
                 .class);
         startActivity(intent);
     }
-
-
-    }
-
-    ///////////////////////////////////////////
-    ///////////////////////////////////////////
-    // Firebase Interface
-    ///////////////////////////////////////////
-    ///////////////////////////////////////////
 
     public void ShowToast(String message){
         Toast.makeText(this,message,Toast.LENGTH_SHORT).show();

@@ -82,7 +82,7 @@
             android:layout_marginRight="5dp"
             android:layout_weight="1"
             android:background="@drawable/btn_bg"
-            android:onClick="LoginToApp"
+            android:onClick="UserLogin"
             android:text="@string/btnLogin"
             android:textSize="20sp" />
 
