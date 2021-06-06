@@ -47,19 +47,23 @@
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="20dp" />
-            <Button
-                android:id="@+id/menuLibrary"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@drawable/ic_baseline_library_music_24" />
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="20dp" />
+
             <Button
                 android:id="@+id/menuProfile"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:background="@drawable/ic_baseline_person_24" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+
+            <Button
+                android:id="@+id/menuSleepTimer"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/ic_sleeptimer" />
+
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="20dp" />

@@ -1,6 +1,7 @@
 package tusba.rhytz;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 
@@ -26,6 +27,7 @@ import java.util.ArrayList;
 
 import tusba.rhytz.helpers.MediaPlayerHelper;
 import tusba.rhytz.models.Music;
+import tusba.rhytz.models.ThemePreference;
 import tusba.rhytz.ui.main.GenresFragment;
 import tusba.rhytz.ui.main.SectionsPagerAdapter;
 import tusba.rhytz.ui.main.SongsFragment;
@@ -44,9 +46,15 @@ public class HomeActivity extends SlideMenu {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ThemePreference themePreference = new ThemePreference(this);
+        setTheme(themePreference.GetThemePreferenceInt());
+
+
+
         LayoutInflater inflater= LayoutInflater.from(this);
         View v = inflater.inflate(R.layout.activity_home,null,false);
         drawer.addView(v,0);
+
 
 
 
@@ -172,5 +180,11 @@ public class HomeActivity extends SlideMenu {
                 ((GenresFragment)sectionsPagerAdapter.fragments.get(i)).Refresh();
         }
 
+    }
+
+    public void Theme(){
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
     }
 }

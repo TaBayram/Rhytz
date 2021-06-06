@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import tusba.rhytz.helpers.GenericAdapter;
 import tusba.rhytz.helpers.MediaPlayerHelper;
 import tusba.rhytz.models.Music;
+import tusba.rhytz.models.ThemePreference;
 
 public class GenericSmallLibraryActivity extends SlideMenu {
 
@@ -29,6 +30,9 @@ public class GenericSmallLibraryActivity extends SlideMenu {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ThemePreference themePreference = new ThemePreference(this);
+        setTheme(themePreference.GetThemePreferenceInt());
+
         LayoutInflater inflater= LayoutInflater.from(this);
         View v = inflater.inflate(R.layout.activity_generic_smal_library,null,false);
         drawer.addView(v,0);

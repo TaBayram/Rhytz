@@ -14,6 +14,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import tusba.rhytz.helpers.MediaPlayerHelper;
+import tusba.rhytz.models.ThemePreference;
 
 public class SleepActivity extends SlideMenu {
 
@@ -25,6 +26,8 @@ public class SleepActivity extends SlideMenu {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ThemePreference themePreference = new ThemePreference(this);
+        setTheme(themePreference.GetThemePreferenceInt());
         LayoutInflater inflater= LayoutInflater.from(this);
         View v = inflater.inflate(R.layout.activity_sleep,null,false);
         drawer.addView(v,0);

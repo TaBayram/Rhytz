@@ -13,6 +13,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import tusba.rhytz.models.ThemePreference;
 import tusba.rhytz.models.User;
 import java.util.Hashtable;
 import java.util.List;
@@ -34,6 +35,8 @@ public class RegisterActivity extends AppCompatActivity implements FirebaseInter
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ThemePreference themePreference = new ThemePreference(this);
+        setTheme(themePreference.GetThemePreferenceInt());
         setContentView(R.layout.register);
 
         TakeComponents();

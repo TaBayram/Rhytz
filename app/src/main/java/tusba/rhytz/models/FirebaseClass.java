@@ -248,83 +248,8 @@ public class FirebaseClass {
                 });
     }
 
-    public void GetAllMusic(FirebaseInterface object){
-        List<Music> allMusic = new ArrayList<Music>();
-        final boolean[] flag1 = {true};
-        final int[] musicCount = {0};
-        final int[] foundMusicCount = {0};
-        firestore.collection("musicians") //get all musician id
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-
-                            //Toast.makeText(context,String.valueOf(task.getResult().size()),Toast.LENGTH_LONG).show();
-                            for (QueryDocumentSnapshot document1 : task.getResult()) {
-
-                                firestore.collection("musicians").document(document1.getId()).collection("musics") // get all musician's music
-                                        .get()
-                                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                                if (task.isSuccessful()) {
-                                                    musicCount[0] += task.getResult().size();
-                                                    for (QueryDocumentSnapshot document2 : task.getResult()) {
-                                                        firestore.collection("musicians").document(document1.getId()).collection("musics").document(document2.getId()).
-                                                                collection("documents").document("info").
-                                                                get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                                            @Override
-                                                            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                                                Music music = documentSnapshot.toObject(Music.class);
-                                                                allMusic.add(music);
-                                                                foundMusicCount[0]++;
-                                                                if(foundMusicCount[0] >= musicCount[0]) { object.GetAllMusicResult(allMusic);}
-
-                                                            }
-                                                        });
 
 
-                                                    }
-
-                                                }
-                                            }
-                                        });
-
-                            }
-
-
-                        } else { Toast.makeText(context,String.valueOf("hata"),Toast.LENGTH_LONG).show();}
-
-
-                    }
-                });
-
-
-    }
-
-    public void GetMusicWithGenre(FirebaseInterface object,String categoryId){
-        List<Music> allMusic = new ArrayList<Music>();
-        final boolean[] flag1 = {false};
-        final boolean[] flag2 = {false};
-        final int[] musicCount = {0};
-        final int[] foundMusicCount = {0};
-        firestore.collection("musicians") //get all musician id
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-
-                            if(task.getResult().size() >= 1){object.CheckUsernameExistResult(true);}
-                            else{object.CheckUsernameExistResult(false);}
-
-                        } else { Toast.makeText(context,String.valueOf("hata"),Toast.LENGTH_LONG).show();}
-
-
-                    }
-                });
-    }
 
     public void GetAllMusic(FirebaseInterface object){
         List<Music> allMusic = new ArrayList<Music>();
@@ -495,17 +420,7 @@ public class FirebaseClass {
                                                 if(foundMusicCount[0] >= musicCount[0]) { object.GetAllMusicianResult(allMusician);}
                                             }
                                         });
-
                             }
-
-                                //Toast.makeText(context,String.valueOf(task.getResult().size()),Toast.LENGTH_LONG).show();
-                                DocumentSnapshot documentSnapshot = task.getResult();
-                                Musician musician = documentSnapshot.toObject(Musician.class);
-                                Log.i("test",musician.getName());
-                                musicianList.add(musician);
-                                foundMusician[0]++;
-                                if(foundMusician[0] >= idList.size()) { object.GetMusicianWithIdResult(musicianList);}
-
                         } else { Toast.makeText(context,String.valueOf("hata"),Toast.LENGTH_LONG).show();}
 
                     }
@@ -530,6 +445,11 @@ public class FirebaseClass {
                                 musicianList.add(musician);
                                 foundMusician[0]++;
                                 if(foundMusician[0] >= idList.size()) { object.GetMusicianWithIdResult(musicianList);}
+
+
+                            } else { Toast.makeText(context,String.valueOf("hata"),Toast.LENGTH_LONG).show();}
+
+
                         }
                     });
         }
@@ -567,16 +487,16 @@ public class FirebaseClass {
 
                                 if(user.getPassword().equals(password))
                                 {
-                                    object.LoginToAppResult(true);
+                                    object.LoginToAppResult(user);
                                     return;
                                 }
                                 else{
                                     Log.i("test","girdi : 2");
-                                    object.LoginToAppResult(false);
+                                    object.LoginToAppResult(null);
                                     return;
                                 }
                             }
-                            object.LoginToAppResult(false);
+                            object.LoginToAppResult(null);
                         } else { Toast.makeText(context,String.valueOf("hata"),Toast.LENGTH_LONG).show();}
 
 

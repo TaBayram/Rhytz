@@ -151,6 +151,10 @@ public class BottomPlayerFragment extends Fragment implements PlayerListenerHelp
 
     @Override
     public void SetState(boolean isPlaying) {
+        if(this.getContext() == null || getActivity() == null){
+            mediaPlayerHelper.getFragmentBottomPlayer().remove(this);
+            return;
+        }
         if(isPlaying){
             buttonPausePlay.setBackground(getResources().getDrawable(android.R.drawable.ic_media_pause));
         }

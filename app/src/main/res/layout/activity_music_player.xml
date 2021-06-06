@@ -33,7 +33,7 @@
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="94dp" />
+            android:layout_height="138dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -187,26 +187,6 @@
             android:layout_width="match_parent"
             android:layout_height="19dp"
             android:layout_weight="0" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp">
-
-            <Space
-                android:layout_width="313dp"
-                android:layout_height="37dp"
-                android:layout_weight="0" />
-
-            <Button
-                android:id="@+id/buttonSleepTimer"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_weight="0"
-                android:background="@drawable/ic_sleeptimer" />
-        </LinearLayout>
 
     </LinearLayout>
 

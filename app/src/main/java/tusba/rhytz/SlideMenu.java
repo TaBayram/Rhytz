@@ -7,16 +7,15 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.audiofx.AudioEffect;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 
-import androidx.appcompat.widget.Toolbar;
-
 import com.google.android.material.navigation.NavigationView;
+
+import tusba.rhytz.helpers.MediaPlayerHelper;
+import tusba.rhytz.models.ThemePreference;
 
 public class SlideMenu extends AppCompatActivity {
     DrawerLayout drawer;
@@ -24,11 +23,14 @@ public class SlideMenu extends AppCompatActivity {
     NavigationView naView;
     ActionBarDrawerToggle toggle;
 
-    Button btnHome,btnLibrary,btnProfile,btnEqualizer,btnSettings,btnLogout;
+    Button btnHome,btnProfile,btnEqualizer,btnSleepTimer,btnLogout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        ThemePreference themePreference = new ThemePreference(this);
+        setTheme(themePreference.GetThemePreferenceInt());
+
         setContentView(R.layout.activity_slide_menu);
         drawer = findViewById(R.id.drawerMenu);
         naView = findViewById(R.id.navView);
@@ -36,7 +38,7 @@ public class SlideMenu extends AppCompatActivity {
 
 
         btnHome=findViewById(R.id.menuHome);
-        btnLibrary=findViewById(R.id.menuLibrary);
+        btnSleepTimer=findViewById(R.id.menuSleepTimer);
         btnProfile=findViewById(R.id.menuProfile);
         btnEqualizer=findViewById(R.id.menuEqualizer);
         btnLogout = findViewById(R.id.menuLogout);
@@ -50,10 +52,11 @@ public class SlideMenu extends AppCompatActivity {
             }
         });
 
-        btnLibrary.setOnClickListener(new View.OnClickListener() {
+        btnSleepTimer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SlideMenu.this,HomeActivity.class);
+                Intent intent = new Intent(SlideMenu.this,SleepActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
             }
         });
@@ -62,17 +65,23 @@ public class SlideMenu extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SlideMenu.this,ProfilePage.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
             }
         });
 
-        btnSettings.setOnClickListener(new View.OnClickListener() {
+        btnEqualizer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SlideMenu.this,SettingsActivity.class);
-                startActivity(intent);
+                int  sessionId = MediaPlayerHelper.getInstance().getMediaPlayer().getAudioSessionId();
+                Intent intent = new Intent(AudioEffect.ACTION_DISPLAY_AUDIO_EFFECT_CONTROL_PANEL);
+                intent.putExtra(AudioEffect.EXTRA_AUDIO_SESSION,sessionId);
+
+                startActivityForResult(intent,123);
+
             }
         });
+
 
         btnLogout.setOnClickListener(new View.OnClickListener(){
             @Override

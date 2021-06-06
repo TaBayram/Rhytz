@@ -19,10 +19,6 @@
         <activity
             android:name=".HomeActivity"
             android:label="@string/title_activity_home"></activity>
-        <activity android:name=".ShowMusiciansMusic" />
-        <activity android:name=".ShowMusicians" />
-        <activity android:name=".ShowMusics" />
-        <activity android:name=".MainActivity"></activity>
         <activity android:name=".MusicPlayer"></activity>
         <activity android:name=".SettingsActivity" />
         <activity android:name=".ProfilePage" />

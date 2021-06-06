@@ -16,6 +16,7 @@ import android.widget.Toast;
 import java.util.Hashtable;
 import java.util.List;
 
+import tusba.rhytz.helpers.MediaPlayerHelper;
 import tusba.rhytz.models.FirebaseClass;
 import tusba.rhytz.models.FirebaseInterface;
 import tusba.rhytz.models.Music;
@@ -32,10 +33,14 @@ public class ProfilePage extends SlideMenu implements FirebaseInterface {
     Button update;
     User newUser;
     ThemePreference themePreference;
+    boolean hasThemeChanged = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        themePreference = new ThemePreference(this);
+        setTheme(themePreference.GetThemePreferenceInt());
+
         LayoutInflater inflater= LayoutInflater.from(this);
         View v = inflater.inflate(R.layout.activity_profile_page,null,false);
         drawer.addView(v,0);
@@ -66,7 +71,7 @@ public class ProfilePage extends SlideMenu implements FirebaseInterface {
             }
         });
 
-        themePreference = new ThemePreference(this);
+
 
         SetUserInfo();
 
@@ -85,11 +90,10 @@ public class ProfilePage extends SlideMenu implements FirebaseInterface {
              rbMale.setChecked(true);} else {  rbFemale.setChecked(true);}
 
         String theme = themePreference.GetThemePreference();
-        if(theme == "error"){theme = "Dark";}
 
-        if(theme == "Dark"){rbDark.setChecked(true);}
-        else if(theme == "Light"){rbLight.setChecked(true);}
-        else if(theme == "Lollipop"){rbLollipop.setChecked(true);}
+        if(theme.equals("Dark")){rbDark.setChecked(true);}
+        else if(theme.equals("Light")){rbLight.setChecked(true);}
+        else if(theme.equals("Lollipop")){rbLollipop.setChecked(true);}
         else{rbDark.setChecked(true);}
     }
 
@@ -102,7 +106,7 @@ public class ProfilePage extends SlideMenu implements FirebaseInterface {
         else if(rgTheme.getCheckedRadioButtonId() == rbLight.getId()){newTheme = "Light";}
         else if(rgTheme.getCheckedRadioButtonId() == rbLollipop.getId()){newTheme = "Lollipop";}
 
-        if(!oldTheme.equals(newTheme)) {themePreference.SetThemePreference(newTheme);}
+        if(!oldTheme.equals(newTheme)) {themePreference.SetThemePreference(newTheme); hasThemeChanged = true;}
 
        String newName = name.getText().toString();
        String newSurname = surname.getText().toString();
@@ -118,6 +122,12 @@ public class ProfilePage extends SlideMenu implements FirebaseInterface {
        firebase.UpdateUser(this,newUser);
 
     }
+    public void onStop(){
+        if(hasThemeChanged)
+            MediaPlayerHelper.getInstance().SetTheme();
+        super.onStop();
+    }
+
 
     @Override
     public void AddAudioToFirebaseResult(boolean result) {

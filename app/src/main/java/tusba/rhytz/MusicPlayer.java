@@ -19,6 +19,7 @@ import android.widget.Toast;
 import tusba.rhytz.helpers.MediaPlayerHelper;
 import tusba.rhytz.helpers.PlayerListenerHelper;
 import tusba.rhytz.models.Music;
+import tusba.rhytz.models.ThemePreference;
 
 
 public class MusicPlayer extends SlideMenu implements PlayerListenerHelper {
@@ -45,6 +46,10 @@ public class MusicPlayer extends SlideMenu implements PlayerListenerHelper {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ThemePreference themePreference = new ThemePreference(this);
+        setTheme(themePreference.GetThemePreferenceInt());
+
+
         LayoutInflater inflater= LayoutInflater.from(this);
         View v = inflater.inflate(R.layout.activity_music_player,null,false);
         drawer.addView(v,0);
@@ -103,7 +108,7 @@ public class MusicPlayer extends SlideMenu implements PlayerListenerHelper {
 
 
         //mediaPlayer = MediaPlayer.create(this, music.getUri());
-        equBtn = (Button) findViewById(R.id.buttonSleepTimer);
+
         AttachListeners();
 
     }
@@ -184,19 +189,7 @@ public class MusicPlayer extends SlideMenu implements PlayerListenerHelper {
             }
         });
 
-        equBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               /* sessionId = mediaPlayerHelper.getMediaPlayer().getAudioSessionId();
-                Intent intent = new Intent(AudioEffect.ACTION_DISPLAY_AUDIO_EFFECT_CONTROL_PANEL);
-                intent.putExtra(AudioEffect.EXTRA_AUDIO_SESSION,sessionId);
 
-                startActivityForResult(intent,123);*/
-
-                Intent intent = new Intent(context, SleepActivity.class);
-                context.startActivity(intent);
-            }
-        });
 
     }
 

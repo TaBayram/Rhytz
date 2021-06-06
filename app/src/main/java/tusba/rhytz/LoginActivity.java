@@ -22,6 +22,7 @@ import tusba.rhytz.models.FirebaseInterface;
 import tusba.rhytz.models.Music;
 import tusba.rhytz.models.Musician;
 import tusba.rhytz.models.MyUser;
+import tusba.rhytz.models.ThemePreference;
 import tusba.rhytz.models.User;
 
 public class LoginActivity extends AppCompatActivity implements FirebaseInterface {
@@ -29,16 +30,19 @@ public class LoginActivity extends AppCompatActivity implements FirebaseInterfac
     FirebaseClass firebase;
     Button btRegister,btnLogin;
     EditText etEmail, etPassword;
-
+    CheckBox remember;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ThemePreference themePreference = new ThemePreference(this);
+        setTheme(themePreference.GetThemePreferenceInt());
+
+
         setContentView(R.layout.login);
-        ShowToast("djlsgdsg");
         firebase = new FirebaseClass(this.getApplicationContext());
 
-        CheckBox remember = findViewById(R.id.cbRemember);
+        remember = findViewById(R.id.cbRemember);
         btRegister =  findViewById(R.id.registerToLogin);
         btnLogin = findViewById(R.id.btnLogin);
         etEmail = findViewById(R.id.etEmail);
@@ -47,6 +51,7 @@ public class LoginActivity extends AppCompatActivity implements FirebaseInterfac
         btRegister.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
+
                 Intent intent_to_register = new Intent(LoginActivity.this,RegisterActivity.class);
                 startActivity(intent_to_register);
             }
@@ -55,8 +60,8 @@ public class LoginActivity extends AppCompatActivity implements FirebaseInterfac
         SharedPreferences preferences = getSharedPreferences("checkbox",MODE_PRIVATE);
         String checkbox = preferences.getString("remember","");
         if(checkbox.equals("true")){
-            Intent intent_sign_control = new Intent(LoginActivity.this,HomeActivity.class);
-            startActivity(intent_sign_control);
+
+            firebase.LoginToApp(this,preferences.getString("email",""),preferences.getString("password",""));
         }
         else if(checkbox.equals("false")){
             Toast.makeText(this,"Please sign in.", Toast.LENGTH_SHORT).show();
@@ -159,7 +164,17 @@ public class LoginActivity extends AppCompatActivity implements FirebaseInterfac
         String password = etPassword.getText().toString().trim();
         if(user != null){
             MyUser.myUser = user;
-            Intent intent_to_login = new Intent(LoginActivity.this,MainActivity.class);
+
+            if(remember.isChecked()){
+                SharedPreferences preferences = getSharedPreferences("checkbox",MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString("email",user.getEmail());
+                editor.putString("password",user.getPassword());
+                editor.apply();
+            }
+
+
+            Intent intent_to_login = new Intent(LoginActivity.this,HomeActivity.class);
             startActivity(intent_to_login);
         }
         else{
@@ -177,9 +192,10 @@ public class LoginActivity extends AppCompatActivity implements FirebaseInterfac
                 etPassword.requestFocus();
                 return;
             }
+            ShowToast("Wrong Information!");
+
         }
-        Intent intent_to_login = new Intent(LoginActivity.this,HomeActivity.class);
-        startActivity(intent_to_login);
+
     }
 
     @Override

@@ -66,6 +66,10 @@ public class MediaPlayerHelper implements FirebaseInterface {
 
     FirebaseClass firebaseHelper;
 
+    public void SetTheme(){
+        ((HomeActivity)fragmentBottomPlayer.get(0).getContext()).Theme();
+    }
+
     private MediaPlayerHelper(){
         mediaPlayer = new MediaPlayer();
         allMusicLocal = new ArrayList<Music>();
@@ -664,9 +668,21 @@ public class MediaPlayerHelper implements FirebaseInterface {
     }
 
     @Override
-    public void LoginToAppResult(boolean result) {
+    public void LoginToAppResult(User user) {
 
     }
+
+    @Override
+    public void UpdateUser(boolean result) {
+
+    }
+
+    @Override
+    public void GetUserResult(User user) {
+
+    }
+
+
 
     @Override
     public void TESTINT(List<String> list) {
