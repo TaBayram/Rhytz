@@ -28,7 +28,7 @@ public class MediaPlayerHelper {
         if(this.mediaPlayer != null && this.mediaPlayer.isPlaying()){
             this.mediaPlayer.stop();
         }
-        this.mediaPlayer = MediaPlayer.create(context,music.getUri());
+        this.mediaPlayer = MediaPlayer.create(context,music.ggetUri());
     }
 
     public boolean isReady() {

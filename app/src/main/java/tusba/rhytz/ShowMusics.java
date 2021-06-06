@@ -281,6 +281,16 @@ public class ShowMusics extends SlideMenu implements FirebaseInterface {
     }
 
     @Override
+    public void UpdateUser(boolean result) {
+
+    }
+
+    @Override
+    public void GetUserResult(User user) {
+
+    }
+
+    @Override
     public void TESTINT(List<String> list) {
 
     }

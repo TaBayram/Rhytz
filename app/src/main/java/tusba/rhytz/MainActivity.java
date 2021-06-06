@@ -23,6 +23,7 @@ import android.webkit.MimeTypeMap;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.Console;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -33,8 +34,11 @@ import java.util.Locale;
 import java.util.Map;
 
 import tusba.rhytz.DAO.FavoriteListDao;
+import tusba.rhytz.DAO.FavoriteListDao_Impl;
 import tusba.rhytz.Entity.FavoriteList;
 import tusba.rhytz.models.Comment;
+import tusba.rhytz.models.DBHelperFavorite;
+import tusba.rhytz.models.Favorite;
 import tusba.rhytz.models.FirebaseClass;
 import tusba.rhytz.models.FirebaseInterface;
 import tusba.rhytz.models.LocalDatabase;
@@ -44,6 +48,7 @@ import tusba.rhytz.models.User;
 
 public class MainActivity extends SlideMenu implements FirebaseInterface {
 
+    DBHelperFavorite dbHelperFavorite;
     Uri audioUri;
     FirebaseClass firebase;
     LocalDatabase localDatabase;
@@ -57,6 +62,7 @@ public class MainActivity extends SlideMenu implements FirebaseInterface {
         View v = inflater.inflate(R.layout.activity_main,null,false);
         drawer.addView(v,0);
 
+        dbHelperFavorite = new DBHelperFavorite(this);
 
         musicianNameTxt = findViewById(R.id.singerNameTXT);
 
@@ -72,6 +78,22 @@ public class MainActivity extends SlideMenu implements FirebaseInterface {
         firebase = new FirebaseClass(this.getApplicationContext());
         localDatabase = new LocalDatabase(this.getApplicationContext());
 
+        User user = new User("CwQ2sOnNg5FvDTZiAEmL","Abdullah baba","Turgut","yeni_mail@gmail.com","yeni username","123","Male");
+        firebase.UpdateUser(this,user);
+
+    }
+    public void AddFavoriteMusic(){
+        Favorite favorite = new Favorite(-1,"9B50TD8H7H15Z66ocDIs","1622914853051");
+        dbHelperFavorite.FavoriteAdd(favorite);
+    }
+    public void DeleteFavoriteMusic(Favorite favorite){
+        dbHelperFavorite.FavoriteDelete(favorite);
+    }
+    public void ShowFavoriteMusic(){
+        ArrayList<Favorite> favoriteList = dbHelperFavorite.FavoriteGetAll();
+        for (Favorite favorite : favoriteList){
+            Log.i("","Favori : " + favorite.getId() + " - " + favorite.getMusician() + " - " + favorite.getMusic() + "\n");
+        }
     }
 
     ///////////////////////////////////////////
@@ -183,6 +205,17 @@ public class MainActivity extends SlideMenu implements FirebaseInterface {
     public void LoginToAppResult(boolean result) {
         if(result){ShowToast("Giriş Başarılı");}
         else{ShowToast("Mail veya Şifre yanlış !");}
+    }
+
+    @Override
+    public void UpdateUser(boolean result) {
+        if(result){ShowToast("Kullanıcı güncelleme Başarılı");}
+        else{ShowToast("Kullanıcı güncelleme Başarısız !");}
+    }
+
+    @Override
+    public void GetUserResult(User user) {
+
     }
 
     @Override

@@ -24,6 +24,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
@@ -37,7 +38,7 @@ public class FirebaseClass {
     Context context;
     RealDoc realDoc = new RealDoc();
 
-    String globalMusicianId = "vfbOjdVF5u7cYQJ4N2d9";
+    String globalMusicianId = "9B50TD8H7H15Z66ocDIs";
 
     Hashtable<String, String> categoryList = new Hashtable<String, String>();
 
@@ -78,6 +79,8 @@ public class FirebaseClass {
 
     }
 
+
+
     public void AddAudioToFirebase(FirebaseInterface object,Uri audioUri,String fileExtension,int songDuration, int durationFromMilli){
 
         if(audioUri != null){
@@ -92,7 +95,7 @@ public class FirebaseClass {
                         @Override
                         public void onSuccess(Uri uri) {
                             String path = "/v0/b/rhytz-1821f.appspot.com/o/musics%2F" + uri.getPath().substring(39,56);
-
+                            Log.i("",path);
                             AddMusicToMusician(path,"şarkı adı",globalMusicianId,"1","2",duration);
                             object.AddAudioToFirebaseResult(true);
                             return;
@@ -147,7 +150,6 @@ public class FirebaseClass {
     public void AddMusicianToFirabase(FirebaseInterface object,String name){
         //Map<String, Object> city = new HashMap<>();
         //city.put("1", "rock");
-
         String id = GetRandomId();
         DocumentReference documentReference = firestore.collection("musicians").document(id);
         documentReference.set(realDoc, SetOptions.merge())
@@ -392,6 +394,40 @@ public class FirebaseClass {
                     }
                 });
 
+    }
+
+    public void GetUser(FirebaseInterface object,String userId){
+        firestore.collection("users").document(userId) // get all musician's music
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            User user = task.getResult().toObject(User.class);
+                            object.GetUserResult(user);
+                        }
+                    }
+                });
+
+    }
+
+    public void UpdateUser(FirebaseInterface object,User user){
+        DocumentReference documentReference = firestore.collection("users").document(user.getId());
+
+        documentReference.set(user)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        object.UpdateUser(true);
+
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        object.UpdateUser(false);
+                    }
+                });
     }
 
     public void GetAllMusician(FirebaseInterface object){

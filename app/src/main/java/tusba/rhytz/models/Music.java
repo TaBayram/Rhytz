@@ -10,15 +10,16 @@ public class Music implements Serializable {
     public String albumId;
     public String categoryId;
     public String musicianId;
-    private String uri;
-    private String name;
-    private int duration;
-    private int size;
-    private String album;
-    private String artist;
-    private String title;
-    private String genre;
-    private String albumArt;
+    public String uri;
+    public String name;
+    public int duration;
+    public int size;
+    public String album;
+    public String artist;
+    public String title;
+    public String genre;
+    public String albumArt;
+    public String source;
 
 
     public Music(){}
@@ -32,7 +33,7 @@ public class Music implements Serializable {
         this.duration = duration;
         this.musicianId = musicianId;
         this.title = title;
-        this.uri = source;
+        this.source = source;
         this.artist = musicianName;
     }
 
@@ -78,15 +79,15 @@ public class Music implements Serializable {
 
     public void setMusicianId(String musicianId) {  this.musicianId = musicianId;   }
 
-    public String getSource() {  return uri;   }
+    public String getSource() {  return source;   }
 
     public void setSource(String source) {   this.uri = source;  }
 
-    public Uri getUri() {
+    public Uri ggetUri() {
         return Uri.parse(uri);
     }
 
-    public void setUri(Uri uri) {
+    public void ssetUri(Uri uri) {
         this.uri = uri.toString();
     }
 

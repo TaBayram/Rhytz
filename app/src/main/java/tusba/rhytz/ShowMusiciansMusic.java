@@ -167,6 +167,16 @@ public class ShowMusiciansMusic extends AppCompatActivity implements FirebaseInt
     }
 
     @Override
+    public void UpdateUser(boolean result) {
+
+    }
+
+    @Override
+    public void GetUserResult(User user) {
+
+    }
+
+    @Override
     public void TESTINT(List<String> list) {
 
     }
