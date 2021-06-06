@@ -7,20 +7,13 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-<<<<<<< HEAD
 
 import tusba.rhytz.models.User;
 
-=======
-
-import tusba.rhytz.model.User;
-
->>>>>>> parent of 014f814 (v 0.1.3)
 public class RegisterActivity extends AppCompatActivity {
     TextView tvMessage;
     EditText etName,etSurname, etEmail, etUsername, etPassword, etPasswordReenter;

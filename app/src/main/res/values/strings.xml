@@ -8,7 +8,6 @@
     <string name="rbMale">MALE</string>
     <string name="rbFemale">FEMALE</string>
     <string name="btnLogout">LOG OUT</string>
-<<<<<<< HEAD
     <string name="title_activity_home">homeActivity</string>
     <string name="tabtitleHome">Home</string>
     <string name="tabtitleSongs">Songs</string>
@@ -32,6 +31,4 @@
     <string name="local">Local</string>
     <string name="stream">Stream</string>
     <string name="mix">Mix</string>
-=======
->>>>>>> parent of 014f814 (v 0.1.3)
 </resources>
