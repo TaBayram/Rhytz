@@ -42,7 +42,7 @@ import tusba.rhytz.models.Music;
 import tusba.rhytz.models.Musician;
 import tusba.rhytz.models.User;
 
-public class MainActivity extends SlideMenu implements FirebaseInterface {
+public class MainActivity extends SlideMenu  {
 
     Uri audioUri;
     FirebaseClass firebase;
