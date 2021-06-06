@@ -23,7 +23,8 @@
         android:layout_weight="1"
         android:gravity="center_horizontal"
         android:text="TextView"
-        android:textColor="@color/purple_200" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="?android:attr/textColorHighlight" />
 
     <TextView
         android:id="@+id/textViewItemGenreFooter"
@@ -33,6 +34,7 @@
         android:layout_weight="1"
         android:gravity="center_horizontal"
         android:text="TextView"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="10sp" />
 
     <View

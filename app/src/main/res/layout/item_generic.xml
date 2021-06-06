@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="clip_horizontal"
                 android:text="TextView"
-                android:textColor="#C3C3C3"
+                android:textColor="?android:attr/textColorHighlight"
                 android:textSize="18sp" />
 
             <TextView
@@ -43,7 +43,7 @@
                 android:layout_width="320dp"
                 android:layout_height="match_parent"
                 android:text="16 songs"
-                android:textColor="#787878"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display2"
                 android:textSize="10sp" />
         </LinearLayout>
 

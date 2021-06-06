@@ -67,14 +67,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:text="Song" />
+                android:text="Song"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
             <TextView
                 android:id="@+id/textViewSingerName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:text="Album" />
+                android:text="Album"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
         </LinearLayout>
 
         <Space
@@ -96,7 +98,8 @@
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
                 android:gravity="clip_horizontal|center_horizontal"
-                android:text="dur" />
+                android:text="dur"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
             <SeekBar
                 android:id="@+id/seekBarMusic"
@@ -116,7 +119,8 @@
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
                 android:gravity="clip_horizontal|center_horizontal"
-                android:text="dur" />
+                android:text="dur"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
         </LinearLayout>
 

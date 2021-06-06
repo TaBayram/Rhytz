@@ -9,12 +9,13 @@
     <EditText
         android:id="@+id/prUsername"
         android:layout_width="204dp"
-        android:layout_height="18dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="66dp"
-        android:layout_marginRight="66dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginRight="64dp"
         android:ems="10"
         android:inputType="textPersonName"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/prMail" />
 
@@ -84,50 +85,54 @@
     <EditText
         android:id="@+id/prName"
         android:layout_width="204dp"
-        android:layout_height="18dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="66dp"
-        android:layout_marginRight="66dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginRight="64dp"
+        android:autofillHints=""
         android:ems="10"
+        android:hint="Name"
         android:inputType="textPersonName"
-        android:textColor="#426113"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/space" />
 
     <EditText
         android:id="@+id/prSurname"
         android:layout_width="204dp"
-        android:layout_height="18dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="66dp"
-        android:layout_marginRight="66dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginRight="64dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:textColor="@color/design_default_color_on_secondary"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/prName" />
 
     <EditText
         android:id="@+id/prMail"
         android:layout_width="204dp"
-        android:layout_height="18dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="66dp"
-        android:layout_marginRight="66dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginRight="64dp"
         android:ems="10"
         android:inputType="textPersonName"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/prSurname" />
 
     <EditText
         android:id="@+id/prPassword"
         android:layout_width="204dp"
-        android:layout_height="18dp"
-        android:layout_marginTop="28dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="64dp"
         android:layout_marginRight="64dp"
         android:ems="10"
         android:inputType="textPersonName|textPassword"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/prUsername" />
 
